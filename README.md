@@ -37,3 +37,15 @@ manim -pql main.py <scene>
     Reinstalled av (version 16.0.1) from conda-forge, which includes properly compiled FFmpeg dependencies for Windows
     Upgraded related system libraries (ffmpeg, openssl, python, etc.) to ensure compatibility
     The error you were experiencing (ImportError: DLL load failed while importing _core) was due to incompatible or missing FFmpeg dependencies. By using conda-forge's build of PyAV, all necessary DLL files and dependencies are properly configured for Windows.
+
+# File structure
+```
+Dyncamics
+|---SP1
+|---SP2
+|---KP2
+|...
+.
+.
+.
+```
