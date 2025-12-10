@@ -33,3 +33,6 @@ wheels/
 *.ico
 *.svg
 *.webp
+
+# text files 
+*.txt
