@@ -35,4 +35,7 @@ wheels/
 *.webp
 
 # text files 
+*.tex
+
 *.txt
+*.pdf

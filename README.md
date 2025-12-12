@@ -19,6 +19,9 @@ then create new project
 manim init project my-project --default   
 ```
 then select a peference template to choose
+```
+manim main.py Test --format=png
+```
 
 # Run the command line (navigating to that folder)
 ```
