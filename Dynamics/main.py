@@ -562,13 +562,13 @@ class Test2(Scene):
         title = Text("Kutzbach Criterion Illustration", font_size=42).to_edge(UP)
         self.add(title)
         
-        # Define link lengths (FIXED - these never change)
+        # Define link lengths (FIXED)
         self.L_AB = 4.0
         self.L_BC = 3.0
         self.L_CD = 3.5
         self.L_DA = 2.0
         
-        # Initial positions for mechanism at CENTER
+        # Initial positions at CENTER
         y_base = -0.5
         x_offset = 0
         
@@ -586,17 +586,22 @@ class Test2(Scene):
         support_A = self.create_fixed_support(self.p_A)
         support_B = self.create_fixed_support(self.p_B)
         
-        # Links
+        # Create links with their own pin joints at both ends
         self.link1 = Line(self.p_A, self.p_B, color=WHITE, stroke_width=6)
-        self.link2 = Line(self.p_B, p_C_init, color=WHITE, stroke_width=6)
-        self.link3 = Line(p_C_init, p_D_init, color=WHITE, stroke_width=6)
-        self.link4 = Line(p_D_init, self.p_A, color=WHITE, stroke_width=6)
+        self.joint1_A = self.create_pin_joint(self.p_A, BLUE)
+        self.joint1_B = self.create_pin_joint(self.p_B, BLUE)
         
-        # Pin joints (hollow circles)
-        self.joint_A = self.create_pin_joint(self.p_A, BLUE)
-        self.joint_B = self.create_pin_joint(self.p_B, BLUE)
-        self.joint_C = self.create_pin_joint(p_C_init, RED)
-        self.joint_D = self.create_pin_joint(p_D_init, RED)
+        self.link2 = Line(self.p_B, p_C_init, color=WHITE, stroke_width=6)
+        self.joint2_B = self.create_pin_joint(self.p_B, BLUE)
+        self.joint2_C = self.create_pin_joint(p_C_init, RED)
+        
+        self.link3 = Line(p_C_init, p_D_init, color=WHITE, stroke_width=6)
+        self.joint3_C = self.create_pin_joint(p_C_init, RED)
+        self.joint3_D = self.create_pin_joint(p_D_init, RED)
+        
+        self.link4 = Line(p_D_init, self.p_A, color=WHITE, stroke_width=6)
+        self.joint4_D = self.create_pin_joint(p_D_init, RED)
+        self.joint4_A = self.create_pin_joint(self.p_A, BLUE)
         
         # Labels
         self.label_A = MathTex("A", font_size=36, color=BLUE).next_to(self.p_A, DOWN, buff=0.5)
@@ -604,56 +609,52 @@ class Test2(Scene):
         self.label_C = MathTex("C", font_size=36, color=RED).next_to(p_C_init, UP+RIGHT, buff=0.2)
         self.label_D = MathTex("D", font_size=36, color=RED).next_to(p_D_init, UP+LEFT, buff=0.2)
         
-        # Link labels showing fixed lengths
-        self.label_link1 = MathTex(f"L_{{AB}}={self.L_AB:.1f}", font_size=24).next_to(self.link1.get_center(), DOWN, buff=0.1)
-        self.label_link2 = MathTex(f"L_{{BC}}={self.L_BC:.1f}", font_size=24).next_to(self.link2.get_center(), RIGHT, buff=0.1)
-        self.label_link3 = MathTex(f"L_{{CD}}={self.L_CD:.1f}", font_size=24).next_to(self.link3.get_center(), UP, buff=0.1)
-        self.label_link4 = MathTex(f"L_{{DA}}={self.L_DA:.1f}", font_size=24).next_to(self.link4.get_center(), LEFT, buff=0.1)
-        
-        # Animation sequence - Build mechanism
+        # Animation sequence - Each link arrives as complete unit
         self.play(FadeIn(support_A), FadeIn(support_B), run_time=0.8)
         self.wait(0.3)
         
-        self.play(
-            Create(self.link1),
-            FadeIn(self.joint_A),
-            FadeIn(self.joint_B),
-            run_time=1
-        )
-        self.play(FadeIn(self.label_A), FadeIn(self.label_B), FadeIn(self.label_link1), run_time=0.6)
-        self.wait(0.4)
+        # Link 1 with both joints
+        link1_assembly = VGroup(self.link1, self.joint1_A, self.joint1_B)
+        self.play(FadeIn(link1_assembly, shift=UP*0.5), run_time=0.8)
+        self.play(FadeIn(self.label_A), FadeIn(self.label_B), run_time=0.4)
+        self.wait(0.3)
         
-        self.play(Create(self.link2), FadeIn(self.joint_C), run_time=1)
-        self.play(FadeIn(self.label_C), FadeIn(self.label_link2), run_time=0.6)
-        self.wait(0.4)
+        # Link 2 with both joints
+        link2_assembly = VGroup(self.link2, self.joint2_B, self.joint2_C)
+        self.play(FadeIn(link2_assembly, shift=DOWN*0.5+RIGHT*0.3), run_time=0.8)
+        self.play(FadeIn(self.label_C), run_time=0.4)
+        self.wait(0.3)
         
-        self.play(Create(self.link3), FadeIn(self.joint_D), run_time=1)
-        self.play(FadeIn(self.label_D), FadeIn(self.label_link3), run_time=0.6)
-        self.wait(0.4)
+        # Link 3 with both joints
+        link3_assembly = VGroup(self.link3, self.joint3_C, self.joint3_D)
+        self.play(FadeIn(link3_assembly, shift=LEFT*0.5), run_time=0.8)
+        self.play(FadeIn(self.label_D), run_time=0.4)
+        self.wait(0.3)
         
-        self.play(Create(self.link4), FadeIn(self.label_link4), run_time=1)
-        self.wait(1)
+        # Link 4 with both joints
+        link4_assembly = VGroup(self.link4, self.joint4_D, self.joint4_A)
+        self.play(FadeIn(link4_assembly, shift=DOWN*0.3), run_time=0.8)
+        self.wait(0.5)
         
         # Group all mechanism elements
         mechanism_group = VGroup(
             support_A, support_B,
             self.link1, self.link2, self.link3, self.link4,
-            self.joint_A, self.joint_B, self.joint_C, self.joint_D,
-            self.label_A, self.label_B, self.label_C, self.label_D,
-            self.label_link1, self.label_link2, self.label_link3, self.label_link4
+            self.joint1_A, self.joint1_B, self.joint2_B, self.joint2_C,
+            self.joint3_C, self.joint3_D, self.joint4_D, self.joint4_A,
+            self.label_A, self.label_B, self.label_C, self.label_D
         )
         
-        # Store the scale factor for later updates
+        # Scale and move to left
         self.scale_factor = 0.65
         target_x = -3.2
         
-        # Move mechanism to left and scale down
         self.play(
             mechanism_group.animate.scale(self.scale_factor).move_to(np.array([target_x, -0.8, 0])),
             run_time=1.2
         )
         
-        # Update the base points after scaling and moving
+        # Update base points after scaling
         center_before = (self.p_A + self.p_B) / 2
         center_after = np.array([target_x, -0.8, 0])
         
@@ -664,7 +665,7 @@ class Test2(Scene):
         self.L_CD *= self.scale_factor
         self.L_DA *= self.scale_factor
         
-        # Show Kutzbach formula on RIGHT side
+        # Show Kutzbach formula on RIGHT
         formula_box = Rectangle(width=5.5, height=5.5, color=BLUE_D, fill_opacity=0.1).shift(RIGHT * 3.3 + DOWN * 0.3)
         
         formula_title = Text("Kutzbach Criterion:", font_size=28).move_to(RIGHT * 3.3 + UP * 1.7)
@@ -673,14 +674,12 @@ class Test2(Scene):
             font_size=32
         ).next_to(formula_title, DOWN, buff=0.4)
         
-        # Parameter values
         params = VGroup(
             MathTex("n = 4 \\text{ (links)}", font_size=26, color=YELLOW),
             MathTex("j_1 = 4 \\text{ (revolute)}", font_size=26, color=YELLOW),
             MathTex("j_2 = 0", font_size=26, color=YELLOW),
         ).arrange(DOWN, buff=0.25, aligned_edge=LEFT).next_to(formula, DOWN, buff=0.4).set_x(3.3)
         
-        # Calculation
         calculation = MathTex(
             "DOF = 3(4-1) - 2(4) - 0",
             font_size=27
@@ -701,15 +700,62 @@ class Test2(Scene):
         self.play(Write(formula_title), run_time=0.8)
         self.play(Write(formula), run_time=1)
         self.wait(0.5)
-        self.play(FadeIn(params), run_time=1)
+        
+        # n = 4 (highlight links with yellow glow)
+        param_n = MathTex("n = 4 \\text{ (links)}", font_size=26, color=YELLOW)
+        param_n.move_to(params[0].get_center())
+        self.play(Write(param_n), run_time=0.8)
+        
+        # Create temporary thick yellow lines behind
+        highlight_links = VGroup(
+            Line(self.link1.get_start(), self.link1.get_end(), color=YELLOW, stroke_width=12),
+            Line(self.link2.get_start(), self.link2.get_end(), color=YELLOW, stroke_width=12),
+            Line(self.link3.get_start(), self.link3.get_end(), color=YELLOW, stroke_width=12),
+            Line(self.link4.get_start(), self.link4.get_end(), color=YELLOW, stroke_width=12)
+        )
+        self.play(FadeIn(highlight_links), run_time=0.4)
         self.wait(0.5)
+        self.play(FadeOut(highlight_links), run_time=0.4)
+        self.wait(0.3)
+        
+        # j1 = 4 (highlight joints - one from each position)
+        param_j1 = MathTex("j_1 = 4 \\text{ (revolute)}", font_size=26, color=YELLOW)
+        param_j1.move_to(params[1].get_center())
+        self.play(Write(param_j1), run_time=0.8)
+        self.play(
+            self.joint1_A.animate.set_stroke(width=5, color=YELLOW),
+            self.joint1_B.animate.set_stroke(width=5, color=YELLOW),
+            self.joint2_C.animate.set_stroke(width=5, color=YELLOW),
+            self.joint3_D.animate.set_stroke(width=5, color=YELLOW),
+            run_time=0.6
+        )
+        self.play(
+            self.joint1_A.animate.set_stroke(width=3, color=BLUE),
+            self.joint1_B.animate.set_stroke(width=3, color=BLUE),
+            self.joint2_C.animate.set_stroke(width=3, color=RED),
+            self.joint3_D.animate.set_stroke(width=3, color=RED),
+            run_time=0.4
+        )
+        self.wait(0.3)
+        
+        # j2 = 0
+        param_j2 = MathTex("j_2 = 0", font_size=26, color=YELLOW)
+        param_j2.move_to(params[2].get_center())
+        self.play(Write(param_j2), run_time=0.8)
+        self.wait(0.5)
+        
+        # Show calculation
         self.play(Write(calculation), run_time=1)
         self.play(Write(calculation2), run_time=0.8)
         self.wait(0.5)
         self.play(Write(result), run_time=1)
-        self.wait(1)
         
-        # Add mobility demonstration text
+        # Emphasize result
+        self.play(result.animate.scale(1.15), run_time=0.5)
+        self.play(result.animate.scale(1/1.15), run_time=0.5)
+        self.wait(0.5)
+        
+        # Mobility demonstration text
         mobility_text = Text(
             "Demonstrating motion:",
             font_size=26,
@@ -719,7 +765,7 @@ class Test2(Scene):
         self.play(FadeIn(mobility_text), run_time=0.8)
         self.wait(0.5)
         
-        # Demonstrate motion with RIGID links
+        # Demonstrate motion
         self.demonstrate_motion()
         
         self.wait(2)
@@ -729,78 +775,77 @@ class Test2(Scene):
         return self.p_A + self.L_DA * np.array([np.cos(angle), np.sin(angle), 0])
     
     def get_point_C(self, p_D):
-        """Calculate position of C using circle intersection (RIGID GEOMETRY)"""
-        # C is at intersection of:
-        # Circle 1: center B, radius L_BC
-        # Circle 2: center D, radius L_CD
-        
+        """Calculate position of C using circle intersection"""
         d = np.linalg.norm(self.p_B - p_D)
         
-        # Check if solution exists
         if d < 0.01 or d > self.L_BC + self.L_CD or d < abs(self.L_BC - self.L_CD):
-            # Return approximate position
             return self.p_B + self.L_BC * np.array([np.cos(PI/3), np.sin(PI/3), 0])
         
-        # Use circle intersection formula
         a = (self.L_BC**2 - self.L_CD**2 + d**2) / (2 * d)
         h_sq = self.L_BC**2 - a**2
+        h = np.sqrt(max(h_sq, 0))
         
-        if h_sq < 0:
-            h_sq = 0
-        
-        h = np.sqrt(h_sq)
-        
-        # Point on line BD
         P = self.p_B + a * (p_D - self.p_B) / d
-        
-        # Perpendicular direction
         direction = (p_D - self.p_B) / d
         perpendicular = np.array([-direction[1], direction[0], 0])
         
-        # Two possible positions
         C1 = P + h * perpendicular
         C2 = P - h * perpendicular
         
-        # Choose upper position
         return C1 if C1[1] > C2[1] else C2
     
     def demonstrate_motion(self):
         """Animate mechanism with RIGID links"""
-        # ValueTracker for angle
         angle_tracker = ValueTracker(self.initial_angle)
+        
+        # Store fixed positions
+        fixed_A = self.joint1_A.get_center().copy()
+        fixed_B = self.joint1_B.get_center().copy()
         
         def update_mechanism(mob):
             angle = angle_tracker.get_value()
             
-            # Calculate new positions using RIGID geometry
-            new_D = self.get_point_D(angle)
-            new_C = self.get_point_C(new_D)
+            # Calculate new positions
+            new_D = fixed_A + self.L_DA * np.array([np.cos(angle), np.sin(angle), 0])
             
-            # Get current positions of A and B (they should be fixed)
-            current_A = self.joint_A.get_center()
-            current_B = self.joint_B.get_center()
+            d = np.linalg.norm(fixed_B - new_D)
             
-            # Update links - make sure they connect to CURRENT A and B positions
-            self.link1.become(Line(current_A, current_B, color=WHITE, stroke_width=6))
-            self.link2.become(Line(current_B, new_C, color=WHITE, stroke_width=6))
+            if d < 0.01 or d > self.L_BC + self.L_CD or d < abs(self.L_BC - self.L_CD):
+                new_C = fixed_B + self.L_BC * np.array([np.cos(PI/3), np.sin(PI/3), 0])
+            else:
+                a = (self.L_BC**2 - self.L_CD**2 + d**2) / (2 * d)
+                h_sq = self.L_BC**2 - a**2
+                h = np.sqrt(max(h_sq, 0))
+                
+                P = fixed_B + a * (new_D - fixed_B) / d
+                direction = (new_D - fixed_B) / d
+                perpendicular = np.array([-direction[1], direction[0], 0])
+                
+                C1 = P + h * perpendicular
+                C2 = P - h * perpendicular
+                new_C = C1 if C1[1] > C2[1] else C2
+            
+            # Update all links
+            self.link1.become(Line(fixed_A, fixed_B, color=WHITE, stroke_width=6))
+            self.link2.become(Line(fixed_B, new_C, color=WHITE, stroke_width=6))
             self.link3.become(Line(new_C, new_D, color=WHITE, stroke_width=6))
-            self.link4.become(Line(new_D, current_A, color=WHITE, stroke_width=6))
+            self.link4.become(Line(new_D, fixed_A, color=WHITE, stroke_width=6))
             
-            # Update joints
-            self.joint_C.move_to(new_C)
-            self.joint_D.move_to(new_D)
+            # Update all joints
+            self.joint2_B.move_to(fixed_B)
+            self.joint2_C.move_to(new_C)
+            self.joint3_C.move_to(new_C)
+            self.joint3_D.move_to(new_D)
+            self.joint4_D.move_to(new_D)
+            self.joint4_A.move_to(fixed_A)
             
             # Update labels
             self.label_C.next_to(new_C, UP+RIGHT, buff=0.15)
             self.label_D.next_to(new_D, UP+LEFT, buff=0.15)
-            self.label_link2.next_to(self.link2.get_center(), RIGHT, buff=0.1)
-            self.label_link3.next_to(self.link3.get_center(), UP, buff=0.1)
-            self.label_link4.next_to(self.link4.get_center(), LEFT, buff=0.1)
         
-        # Add updater
         self.link2.add_updater(update_mechanism)
         
-        # Animate - smooth rotation
+        # Animate
         self.play(
             angle_tracker.animate.set_value(self.initial_angle + PI/2.5),
             run_time=3,
@@ -817,21 +862,20 @@ class Test2(Scene):
             rate_func=smooth
         )
         
-        # Remove updater
         self.link2.remove_updater(update_mechanism)
     
     def create_pin_joint(self, position, color):
-        """Create a simple pin joint (single hollow circle)"""
+        """Create a pin joint with solid black fill"""
         return Circle(
             radius=0.12,
             color=color,
             stroke_width=3,
-            fill_opacity=0
+            fill_color=BLACK,
+            fill_opacity=1
         ).move_to(position)
     
     def create_fixed_support(self, position):
-        """Create a simple fixed support with triangle, hatching, and hollow dot"""
-        # Triangle
+        """Create a fixed support"""
         triangle = Polygon(
             position + np.array([-0.3, -0.2, 0]),
             position + np.array([0.3, -0.2, 0]),
@@ -841,7 +885,6 @@ class Test2(Scene):
             stroke_width=0
         )
         
-        # Ground base line
         ground_line = Line(
             position + np.array([-0.4, -0.2, 0]),
             position + np.array([0.4, -0.2, 0]),
@@ -849,7 +892,6 @@ class Test2(Scene):
             stroke_width=4
         )
         
-        # Hash lines
         hash_lines = VGroup(*[
             Line(
                 position + np.array([-0.4 + i*0.1, -0.2, 0]),
@@ -860,7 +902,6 @@ class Test2(Scene):
             for i in range(9)
         ])
         
-        # Hollow dot at top corner (joint)
         hollow_dot = Circle(
             radius=0.12,
             color=WHITE,
@@ -869,3 +910,279 @@ class Test2(Scene):
         ).move_to(position)
         
         return VGroup(triangle, ground_line, hash_lines, hollow_dot)
+
+from manim import *
+
+class GrueblerDerivation(Scene):
+    def construct(self):
+        # Title
+        title = Text("Derivation of Gruebler's Equation", font_size=42).to_edge(UP)
+        self.add(title)
+        self.wait(0.5)
+        
+        # Step 1: Start with rigid body in plane
+        step1_title = Text("Step 1: Rigid Body in Plane", font_size=32, color=YELLOW).shift(UP*2.5)
+        
+        # Create a rigid link (line with joints at ends)
+        link = Line(LEFT*1.5, RIGHT*1.5, color=WHITE, stroke_width=8)
+        joint1 = Circle(radius=0.12, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(LEFT*1.5)
+        joint2 = Circle(radius=0.12, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(RIGHT*1.5)
+        body = VGroup(link, joint1, joint2)
+        
+        # Show DOF arrows
+        arrow_x = Arrow(ORIGIN, RIGHT*0.8, color=RED, buff=0)
+        arrow_y = Arrow(ORIGIN, UP*0.8, color=RED, buff=0)
+        arrow_rot = Arc(radius=0.6, start_angle=0, angle=PI/2, color=RED, stroke_width=3)
+        arrow_rot.add_tip(tip_length=0.15)
+        
+        dof_group = VGroup(arrow_x, arrow_y, arrow_rot).next_to(body, DOWN, buff=0.8)
+        
+        dof_label = MathTex(r"DOF = 3", font_size=36, color=GREEN).next_to(dof_group, DOWN, buff=0.3)
+        explanation1 = MathTex(r"(x, y, \\theta)", font_size=24).next_to(dof_label, DOWN, buff=0.2)
+        
+        self.play(FadeIn(step1_title), run_time=0.6)
+        self.play(Create(body), run_time=0.8)
+        self.play(Create(dof_group), run_time=1)
+        self.play(Write(dof_label), FadeIn(explanation1), run_time=0.8)
+        self.wait(1.5)
+        
+        # Clear for step 2
+        self.play(
+            FadeOut(step1_title), FadeOut(body), FadeOut(dof_group), 
+            FadeOut(dof_label), FadeOut(explanation1),
+            run_time=0.8
+        )
+        
+        # Step 2: Multiple bodies
+        step2_title = Text("Step 2: Multiple Bodies", font_size=32, color=YELLOW).shift(UP*2.5)
+        
+        # Create 3 rigid links
+        link1 = Line(LEFT*1.2, RIGHT*1.2, color=WHITE, stroke_width=8).shift(LEFT*3 + UP*0.5)
+        j1a = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(link1.get_start())
+        j1b = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(link1.get_end())
+        body1 = VGroup(link1, j1a, j1b)
+        
+        link2 = Line(LEFT*1.2, RIGHT*1.2, color=WHITE, stroke_width=8).shift(UP*0.5)
+        j2a = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(link2.get_start())
+        j2b = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(link2.get_end())
+        body2 = VGroup(link2, j2a, j2b)
+        
+        link3 = Line(LEFT*1.2, RIGHT*1.2, color=WHITE, stroke_width=8).shift(RIGHT*3 + UP*0.5)
+        j3a = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(link3.get_start())
+        j3b = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(link3.get_end())
+        body3 = VGroup(link3, j3a, j3b)
+        
+        label1 = MathTex("1", font_size=24).next_to(body1, DOWN, buff=0.2)
+        label2 = MathTex("2", font_size=24).next_to(body2, DOWN, buff=0.2)
+        label3 = MathTex("3", font_size=24).next_to(body3, DOWN, buff=0.2)
+        
+        bodies = VGroup(body1, body2, body3, label1, label2, label3)
+        
+        formula1 = Text("For n bodies:", font_size=32).shift(DOWN*1.2)
+        
+        formula2 = MathTex(
+            r"\\text{Total DOF} = 3n",
+            font_size=36,
+            color=GREEN
+        ).next_to(formula1, DOWN, buff=0.3)
+        
+        explanation2 = Text("(before any constraints)", font_size=24, color=GRAY).next_to(formula2, DOWN, buff=0.2)
+        
+        self.play(FadeIn(step2_title), run_time=0.6)
+        self.play(FadeIn(bodies), run_time=1)
+        self.wait(0.5)
+        self.play(Write(formula1), run_time=0.8)
+        self.play(Write(formula2), run_time=0.8)
+        self.play(FadeIn(explanation2), run_time=0.6)
+        self.wait(1.5)
+        
+        # Clear for step 3
+        self.play(
+            FadeOut(step2_title), FadeOut(bodies), 
+            FadeOut(formula1), FadeOut(formula2), FadeOut(explanation2),
+            run_time=0.8
+        )
+        
+        # Step 3: Ground constraint
+        step3_title = Text("Step 3: Fix One Body (Ground)", font_size=32, color=YELLOW).shift(UP*2.5)
+        
+        # Ground link
+        ground_link = Line(LEFT*2.5, RIGHT*2.5, color=DARK_GRAY, stroke_width=10).shift(DOWN*1.5)
+        ground_j1 = Circle(radius=0.12, color=WHITE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(ground_link.get_start())
+        ground_j2 = Circle(radius=0.12, color=WHITE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(ground_link.get_end())
+        ground = VGroup(ground_link, ground_j1, ground_j2)
+        ground_label = Text("Ground", font_size=24, color=WHITE).next_to(ground, DOWN, buff=0.3)
+        
+        # Hatching below ground
+        hatches = VGroup(*[
+            Line(
+                ground.get_bottom() + LEFT*2.5 + RIGHT*i*0.3,
+                ground.get_bottom() + LEFT*2.5 + RIGHT*i*0.3 + DOWN*0.2 + LEFT*0.2,
+                color=DARK_GRAY,
+                stroke_width=2
+            )
+            for i in range(18)
+        ])
+        
+        # Moving links
+        ml1 = Line(LEFT*1, RIGHT*1, color=WHITE, stroke_width=8).shift(UP*0.5 + LEFT*2)
+        mj1a = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(ml1.get_start())
+        mj1b = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(ml1.get_end())
+        moving1 = VGroup(ml1, mj1a, mj1b)
+        
+        ml2 = Line(LEFT*1, RIGHT*1, color=WHITE, stroke_width=8).shift(UP*0.5 + RIGHT*2)
+        mj2a = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(ml2.get_start())
+        mj2b = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(ml2.get_end())
+        moving2 = VGroup(ml2, mj2a, mj2b)
+        
+        formula3 = MathTex(
+            r"DOF = 3(n-1)",
+            font_size=36,
+            color=GREEN
+        ).shift(UP*1.8 + RIGHT*3.5)
+        
+        explanation3 = Text("(One body fixed)", font_size=24, color=GRAY).next_to(formula3, DOWN, buff=0.2)
+        
+        self.play(FadeIn(step3_title), run_time=0.6)
+        self.play(FadeIn(ground), FadeIn(ground_label), Create(hatches), run_time=1)
+        self.play(FadeIn(moving1), FadeIn(moving2), run_time=0.8)
+        self.wait(0.5)
+        self.play(Write(formula3), FadeIn(explanation3), run_time=1)
+        self.wait(1.5)
+        
+        # Clear for step 4
+        self.play(
+            FadeOut(step3_title), FadeOut(ground), FadeOut(ground_label), 
+            FadeOut(hatches), FadeOut(moving1), FadeOut(moving2),
+            FadeOut(formula3), FadeOut(explanation3),
+            run_time=0.8
+        )
+        
+        # Step 4: Joints remove DOF
+        step4_title = Text("Step 4: Joints Remove DOF", font_size=32, color=YELLOW).shift(UP*2.8)
+        
+        # Two links connected by joint
+        left_link = Line(LEFT*1.5, ORIGIN, color=WHITE, stroke_width=8).shift(LEFT*0.5)
+        lj1 = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(left_link.get_start())
+        lj2 = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(left_link.get_end())
+        left_body = VGroup(left_link, lj1, lj2)
+        
+        right_link = Line(ORIGIN, RIGHT*1.5, color=WHITE, stroke_width=8).shift(RIGHT*0.5)
+        rj1 = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(right_link.get_start())
+        rj2 = Circle(radius=0.1, color=BLUE, fill_color=BLACK, fill_opacity=1, stroke_width=3).move_to(right_link.get_end())
+        right_body = VGroup(right_link, rj1, rj2)
+        
+        # Revolute joint
+        joint = Circle(radius=0.15, color=RED, fill_color=BLACK, fill_opacity=1, stroke_width=4)
+        joint_label = Text("Revolute Joint", font_size=24, color=RED).next_to(joint, DOWN, buff=0.5)
+        
+        constraint_text = VGroup(
+            Text(r"Constraints:", font_size=28, color=YELLOW),
+            MathTex(r"\Delta x = 0", font_size=24),
+            MathTex(r"\Delta y = 0", font_size=24),
+        ).arrange(DOWN, buff=0.2, aligned_edge=LEFT).shift(DOWN*1.8 + LEFT*3)
+        
+        removed_dof = Text("Removes 2 DOF", font_size=32, color=RED).shift(DOWN*1.8 + RIGHT*2.5)
+        
+        self.play(FadeIn(step4_title), run_time=0.6)
+        self.play(FadeIn(left_body), FadeIn(right_body), run_time=0.8)
+        self.play(Create(joint), FadeIn(joint_label), run_time=0.8)
+        self.wait(0.5)
+        self.play(Write(constraint_text), run_time=1)
+        self.play(Write(removed_dof), run_time=0.8)
+        self.wait(1.5)
+        
+        # Clear for step 5
+        self.play(
+            FadeOut(step4_title), FadeOut(left_body), FadeOut(right_body),
+            FadeOut(joint), FadeOut(joint_label), FadeOut(constraint_text),
+            FadeOut(removed_dof),
+            run_time=0.8
+        )
+        
+        # Step 5: Final formula derivation
+        step5_title = Text("Step 5: Complete Formula", font_size=32, color=YELLOW).to_edge(UP, buff=1)
+        
+        self.play(FadeIn(step5_title), run_time=0.6)
+        
+        # Build formula step by step
+        line1 = MathTex(
+            r"DOF = 3(n-1)",
+            font_size=36
+        ).shift(UP*1.5)
+        
+        line2 = MathTex(
+            r"DOF = 3(n-1) - 2j_1",
+            font_size=36
+        ).shift(UP*0.5)
+        
+        line2_exp = MathTex(r"j_1 = \text{revolute joints}", font_size=24, color=GRAY).next_to(line2, DOWN, buff=0.2)
+        
+        line3 = MathTex(
+            r"DOF = 3(n-1) - 2j_1 - j_2",
+            font_size=36
+        ).shift(DOWN*0.8)
+        
+        line3_exp = MathTex(r"j_2 = \text{prismatic joints}", font_size=24, color=GRAY).next_to(line3, DOWN, buff=0.2)
+        
+        # Final boxed formula
+        final_formula = MathTex(
+            r"\\boxed{DOF = 3(n-1) - 2j_1 - j_2}",
+            font_size=42,
+            color=GREEN
+        ).shift(DOWN*2.2)
+        
+        final_label = Text("Gruebler's Equation", font_size=28, color=YELLOW).next_to(final_formula, DOWN, buff=0.4)
+        
+        self.play(Write(line1), run_time=1)
+        self.wait(0.8)
+        self.play(
+            FadeOut(line1),
+            Write(line2),
+            FadeIn(line2_exp),
+            run_time=1
+        )
+        self.wait(1)
+        self.play(
+            FadeOut(line2), FadeOut(line2_exp),
+            Write(line3),
+            FadeIn(line3_exp),
+            run_time=1
+        )
+        self.wait(1)
+        self.play(
+            FadeOut(line3), FadeOut(line3_exp),
+            Write(final_formula),
+            run_time=1.2
+        )
+        self.play(FadeIn(final_label), run_time=0.8)
+        
+        # Emphasize final formula
+        self.play(final_formula.animate.scale(1.15), run_time=0.5)
+        self.play(final_formula.animate.scale(1/1.15), run_time=0.5)
+        
+        self.wait(2)
+        
+        # Show what each term means
+        self.play(
+            FadeOut(step5_title),
+            final_formula.animate.shift(UP*2),
+            final_label.animate.shift(UP*2),
+            run_time=0.8
+        )
+        
+        terms_title = Text("Where:", font_size=32, color=YELLOW).shift(UP*0.5)
+        
+        term1 = MathTex(r"n = \text{number of links}", font_size=28).shift(UP*0)
+        term2 = MathTex(r"j_1 = \text{1-DOF joints}", font_size=28).shift(DOWN*0.5)
+        term3 = MathTex(r"j_2 = \text{2-DOF joints}", font_size=28).shift(DOWN*1)
+        term4 = MathTex(r"DOF = \text{mobility}", font_size=28, color=GREEN).shift(DOWN*1.5)
+        
+        terms = VGroup(term1, term2, term3, term4)
+        
+        self.play(Write(terms_title), run_time=0.6)
+        for term in terms:
+            self.play(FadeIn(term), run_time=0.7)
+            self.wait(0.3)
+        
+        self.wait(3)
