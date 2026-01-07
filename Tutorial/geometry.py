@@ -172,8 +172,33 @@ class pythagorean_theorem(Scene):
         anno = VGroup(anno_a, anno_b, anno_c)
         self.play(FadeOut(anno))
 
+        equ = MathTex(r"c^2 = a^2 + b^2")
+        self.play(Write(equ.move_to(RIGHT*3)))
         
         self.wait(2)
 
         # hin = Text("नमस्ते! मेरो नाम सेवक हो।", font="sans-serif")
         # self.play(Write(hin))
+
+class InscribedAngleTheoremI(Scene):
+    def construct(self):
+        c = Circle(radius=2)
+        c.move_to(ORIGIN)
+        
+        p1 = c.point_at_angle(60*DEGREES)
+        p2 = c.point_at_angle(120*DEGREES)
+        p3 = c.point_at_angle(230*DEGREES)
+        p4 = c.point_at_angle(330*DEGREES)
+        self.play(Create(c))
+        line1 = Line(p4, p1)
+        line2 = Line(p1, p3)
+        cline1 = VGroup(Dot(p4), line1, Dot(p1), line2, Dot(p3))
+        # self.add(Dot(p1), Dot(p2), Dot(p3), Dot(p4))
+        line3 = Line(p3, p2)
+        line4 = Line(p2, p4)
+        cline2 = VGroup(Dot(p3), line3, Dot(p2), line4, Dot(p4))
+        self.play(Create(cline1))
+        self.play(Create(cline2))
+        arc = TangentialArc(line1, line2, radius=2.25, corner=(1, 1), color=TEAL)
+        self.add(arc, line1, line2)
+        self.wait(5)
