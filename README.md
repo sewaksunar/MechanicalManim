@@ -32,10 +32,6 @@ manim -pql main.py <scene>
 ```
 # Or can run the animation via manim sideview extension 
 ## This error can occus:
-    The issue is now fixed. The manim command executed successfully without the DLL loading error.
-
-    Summary of the fix:
-
     Removed the problematic av package (version 13.1.0) from your environment
     Reinstalled av (version 16.0.1) from conda-forge, which includes properly compiled FFmpeg dependencies for Windows
     Upgraded related system libraries (ffmpeg, openssl, python, etc.) to ensure compatibility
