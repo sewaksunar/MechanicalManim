@@ -179,26 +179,215 @@ class pythagorean_theorem(Scene):
 
         # hin = Text("नमस्ते! मेरो नाम सेवक हो।", font="sans-serif")
         # self.play(Write(hin))
+from manim import *
 
 class InscribedAngleTheoremI(Scene):
     def construct(self):
-        c = Circle(radius=2)
-        c.move_to(ORIGIN)
+        # Create trackers for animation
+        radius_tracker = ValueTracker(2)
+        angle1_tracker = ValueTracker(60)
+        angle2_tracker = ValueTracker(120)
+        angle3_tracker = ValueTracker(230)
+        angle4_tracker = ValueTracker(330)
         
-        p1 = c.point_at_angle(60*DEGREES)
-        p2 = c.point_at_angle(120*DEGREES)
-        p3 = c.point_at_angle(230*DEGREES)
-        p4 = c.point_at_angle(330*DEGREES)
+        # Create circle with always_redraw
+        c = always_redraw(lambda: Circle(
+            radius=radius_tracker.get_value(), 
+            color=WHITE
+        ).move_to(ORIGIN))
+        
+        # Create points that update based on trackers
+        dot_p1 = always_redraw(lambda: Dot(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle1_tracker.get_value()*DEGREES),
+            color=YELLOW
+        ))
+        dot_p2 = always_redraw(lambda: Dot(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle2_tracker.get_value()*DEGREES),
+            color=YELLOW
+        ))
+        dot_p3 = always_redraw(lambda: Dot(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle3_tracker.get_value()*DEGREES),
+            color=YELLOW
+        ))
+        dot_p4 = always_redraw(lambda: Dot(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle4_tracker.get_value()*DEGREES),
+            color=YELLOW
+        ))
+        
+        # Create lines that update
+        line1 = always_redraw(lambda: Line(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle1_tracker.get_value()*DEGREES),
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle3_tracker.get_value()*DEGREES),
+            color=BLUE
+        ))
+        line2 = always_redraw(lambda: Line(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle1_tracker.get_value()*DEGREES),
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle4_tracker.get_value()*DEGREES),
+            color=BLUE
+        ))
+        line3 = always_redraw(lambda: Line(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle2_tracker.get_value()*DEGREES),
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle3_tracker.get_value()*DEGREES),
+            color=RED
+        ))
+        line4 = always_redraw(lambda: Line(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle2_tracker.get_value()*DEGREES),
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle4_tracker.get_value()*DEGREES),
+            color=RED
+        ))
+        
+        # Create arc that updates
+        arc = always_redraw(lambda: Arc(
+            radius=radius_tracker.get_value(),
+            start_angle=angle3_tracker.get_value()*DEGREES,
+            angle=(angle4_tracker.get_value() - angle3_tracker.get_value())*DEGREES,
+            color=GREEN,
+            stroke_width=6
+        ))
+        
+        # Create angles that update
+        angle1 = always_redraw(lambda: Angle(
+            Line(
+                Circle(radius=radius_tracker.get_value()).point_at_angle(angle1_tracker.get_value()*DEGREES),
+                Circle(radius=radius_tracker.get_value()).point_at_angle(angle3_tracker.get_value()*DEGREES)
+            ),
+            Line(
+                Circle(radius=radius_tracker.get_value()).point_at_angle(angle1_tracker.get_value()*DEGREES),
+                Circle(radius=radius_tracker.get_value()).point_at_angle(angle4_tracker.get_value()*DEGREES)
+            ),
+            radius=0.5,
+            color=YELLOW
+        ))
+        
+        angle2 = always_redraw(lambda: Angle(
+            Line(
+                Circle(radius=radius_tracker.get_value()).point_at_angle(angle2_tracker.get_value()*DEGREES),
+                Circle(radius=radius_tracker.get_value()).point_at_angle(angle3_tracker.get_value()*DEGREES)
+            ),
+            Line(
+                Circle(radius=radius_tracker.get_value()).point_at_angle(angle2_tracker.get_value()*DEGREES),
+                Circle(radius=radius_tracker.get_value()).point_at_angle(angle4_tracker.get_value()*DEGREES)
+            ),
+            radius=0.5,
+            color=YELLOW
+        ))
+        
+        # Labels
+        label1 = always_redraw(lambda: MathTex(r"\theta_1", color=BLUE).scale(0.7).next_to(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle1_tracker.get_value()*DEGREES),
+            DOWN, buff=0.3
+        ))
+        label2 = always_redraw(lambda: MathTex(r"\theta_2", color=RED).scale(0.7).next_to(
+            Circle(radius=radius_tracker.get_value()).point_at_angle(angle2_tracker.get_value()*DEGREES),
+            DOWN, buff=0.3
+        ))
+        
+        # Initial creation
         self.play(Create(c))
-        line1 = Line(p4, p1)
-        line2 = Line(p1, p3)
-        cline1 = VGroup(Dot(p4), line1, Dot(p1), line2, Dot(p3))
-        # self.add(Dot(p1), Dot(p2), Dot(p3), Dot(p4))
-        line3 = Line(p3, p2)
-        line4 = Line(p2, p4)
-        cline2 = VGroup(Dot(p3), line3, Dot(p2), line4, Dot(p4))
-        self.play(Create(cline1))
-        self.play(Create(cline2))
-        arc = TangentialArc(line1, line2, radius=2.25, corner=(1, 1), color=TEAL)
-        self.add(arc, line1, line2)
-        self.wait(5)
+        self.wait(0.5)
+        
+        self.play(
+            Create(line1), Create(line2), 
+            Create(dot_p1), Create(dot_p3), Create(dot_p4)
+        )
+        self.wait(0.5)
+        
+        self.play(Create(line3), Create(line4), Create(dot_p2))
+        self.wait(0.5)
+        
+        self.play(Create(arc))
+        self.wait(0.5)
+        
+        self.play(Create(angle1), Write(label1))
+        self.wait(0.3)
+        self.play(Create(angle2), Write(label2))
+        self.wait(1)
+        
+        # Add theorem statement
+        theorem = VGroup(
+            Text("Inscribed Angle Theorem:", font_size=24, color=YELLOW),
+            Text("Angles subtending the same arc are equal", font_size=20)
+        ).arrange(DOWN, buff=0.2)
+        theorem.to_edge(UP, buff=0.5)
+        
+        self.play(Write(theorem))
+        self.wait(1)
+        
+        # ANIMATE: Move p1 smoothly
+        self.play(
+            angle1_tracker.animate.set_value(80),
+            run_time=2,
+            rate_func=smooth
+        )
+        self.wait(0.5)
+        
+        self.play(
+            angle1_tracker.animate.set_value(45),
+            run_time=2,
+            rate_func=smooth
+        )
+        self.wait(0.5)
+        
+        self.play(
+            angle1_tracker.animate.set_value(90),
+            run_time=2,
+            rate_func=smooth
+        )
+        self.wait(0.5)
+        
+        # ANIMATE: Move p2 smoothly
+        self.play(
+            angle2_tracker.animate.set_value(140),
+            run_time=2,
+            rate_func=smooth
+        )
+        self.wait(0.5)
+        
+        self.play(
+            angle2_tracker.animate.set_value(100),
+            run_time=2,
+            rate_func=smooth
+        )
+        self.wait(0.5)
+        
+        # ANIMATE: Change circle radius smoothly
+        self.play(
+            radius_tracker.animate.set_value(2.5),
+            run_time=2,
+            rate_func=smooth
+        )
+        self.wait(0.5)
+        
+        self.play(
+            radius_tracker.animate.set_value(1.5),
+            run_time=2,
+            rate_func=smooth
+        )
+        self.wait(0.5)
+        
+        self.play(
+            radius_tracker.animate.set_value(2.8),
+            run_time=2,
+            rate_func=smooth
+        )
+        self.wait(0.5)
+        
+        # ANIMATE: Combine multiple changes
+        self.play(
+            angle1_tracker.animate.set_value(70),
+            angle2_tracker.animate.set_value(115),
+            radius_tracker.animate.set_value(2.2),
+            run_time=3,
+            rate_func=smooth
+        )
+        self.wait(1)
+        
+        # Final message
+        final_text = Text(
+            "The theorem holds for any circle size and vertex position!",
+            font_size=20,
+            color=GREEN
+        ).to_edge(DOWN, buff=0.5)
+        
+        self.play(Write(final_text))
+        self.wait(3)
