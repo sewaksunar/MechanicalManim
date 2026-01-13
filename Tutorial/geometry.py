@@ -275,13 +275,13 @@ class InscribedAngleTheoremI(Scene):
         # Labels
         label1 = always_redraw(lambda: MathTex(r"\theta_1", color=BLUE).scale(0.7).next_to(
             Circle(radius=radius_tracker.get_value()).point_at_angle(angle1_tracker.get_value()*DEGREES),
-            DOWN, buff=0.3
+            DOWN+LEFT, buff=0.5
         ))
         label2 = always_redraw(lambda: MathTex(r"\theta_2", color=RED).scale(0.7).next_to(
             Circle(radius=radius_tracker.get_value()).point_at_angle(angle2_tracker.get_value()*DEGREES),
-            DOWN, buff=0.3
+            DOWN+RIGHT, buff=0.5
         ))
-        
+         
         # Initial creation
         self.play(Create(c))
         self.wait(0.5)
@@ -311,6 +311,7 @@ class InscribedAngleTheoremI(Scene):
         theorem.to_edge(UP, buff=0.5)
         
         self.play(Write(theorem))
+        self.play(FadeOut(theorem))
         self.wait(1)
         
         # ANIMATE: Move p1 smoothly
@@ -391,3 +392,65 @@ class InscribedAngleTheoremI(Scene):
         
         self.play(Write(final_text))
         self.wait(3)
+        
+from manim import *
+import numpy as np
+
+class StressTransformation(Scene):
+    def construct(self):
+        # 1. Configuration
+        theta = PI / 3  # 60 degrees
+        side = 3
+        txx, tyy, txy = 1.5, 1.0, 1.2
+        offset = 0.2
+
+        # 2. The Wedge (Triangle)
+        # Vertices for a wedge based on the sectional line
+        p_origin = ORIGIN
+        p_right = RIGHT * side
+        p_top = UP * (side * np.tan(theta))
+        
+        wedge = Polygon(p_origin, p_right, p_top, color=WHITE, stroke_width=2)
+        wedge.set_fill(GRAY, opacity=0.3)
+
+        # 3. Surface Stresses (Normal and Shear)
+        # Middle of the inclined plane (hypotenuse)
+        hyp_mid = (p_right + p_top) / 2
+        normal_dir = rotate_vector(RIGHT, theta)
+        tangent_dir = rotate_vector(UP, theta)
+
+        s_n = Arrow(hyp_mid, hyp_mid + normal_dir * 1.5, buff=0, color=RED)
+        t_nt = Arrow(hyp_mid, hyp_mid + tangent_dir * 1.2, buff=0, color=MAROON)
+        
+        l_sn = MathTex(r"\sigma_n").next_to(s_n, normal_dir, buff=0.1)
+        l_tnt = MathTex(r"\tau_{nt}").next_to(t_nt, tangent_dir, buff=0.1)
+
+        # 4. Original Face Stresses (Equilibrium components)
+        # Stress on the vertical face (Left side)
+        s_xx_v = Arrow(p_origin + LEFT*offset, p_origin + LEFT*(txx+offset), buff=0, color=YELLOW)
+        s_xx_v.shift(UP * (p_top[1]/2))
+        l_xx = MathTex(r"\sigma_{xx}").next_to(s_xx_v, LEFT)
+
+        # Stress on the horizontal face (Bottom side)
+        s_yy_h = Arrow(p_origin + DOWN*offset, p_origin + DOWN*(tyy+offset), buff=0, color=YELLOW)
+        s_yy_h.shift(RIGHT * (side/2))
+        l_yy = MathTex(r"\sigma_{yy}").next_to(s_yy_h, DOWN)
+
+        # Shear on bottom face
+        tau_h = Arrow(p_origin + DOWN*offset*2, p_origin + DOWN*offset*2 + RIGHT*1.5, buff=0, color=BLUE)
+        tau_h.shift(RIGHT * (side/2 - 0.75))
+
+        # 5. The Angle
+        arc = Arc(radius=0.7, start_angle=0, angle=theta, arc_center=p_right)
+        l_theta = MathTex(r"\theta").next_to(arc, LEFT, buff=0.1).scale(0.8)
+
+        # 6. Equations
+        eq = MathTex(
+            r"\sigma_n = \sigma_x \cos^2\theta + \sigma_y \sin^2\theta + 2\tau_{xy}\sin\theta\cos\theta"
+        ).scale(0.7).to_edge(DOWN)
+
+        # 7. Rendering
+        derivation = VGroup(wedge, s_n, t_nt, l_sn, l_tnt, s_xx_v, l_xx, s_yy_h, l_yy, tau_h, arc, l_theta)
+        derivation.move_to(ORIGIN).scale(0.9)
+        
+        self.add(derivation, eq)

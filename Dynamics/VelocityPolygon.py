@@ -5,7 +5,7 @@ from sympy import Matrix, simplify, N as sympy_N
 
 class VP1(Scene):
     """
-    Four-bar linkage velocity analysis using SymPy for accurate calculations
+    Four-bar linkage ve2004locity analysis using SymPy for accurate calculations
     Split screen: Left - Mechanism, Right - Velocity Polygon
     """
     
