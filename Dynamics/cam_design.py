@@ -82,7 +82,19 @@ class CamFollowerDisplacement(Scene):
             stroke_width=3
         )
         
-        # Vertical stem (green rectangle)
+        # Roller center pin/shaft (black dot showing rotation center)
+        roller_center_pin = Dot(color=BLACK, radius=0.05)
+        
+        # Roller rolling indicator (arc showing rotation)
+        roller_arc = Arc(
+            radius=roller_radius*0.6,
+            angle=PI/3,
+            color=YELLOW,
+            stroke_width=1.5,
+            stroke_opacity=0.6
+        )
+        
+        # Vertical stem (green rectangle - main body)
         stem_width = 0.14
         stem_height = 2.0
         stem = Rectangle(
@@ -92,6 +104,40 @@ class CamFollowerDisplacement(Scene):
             fill_opacity=0.7,
             stroke_color=GREEN_B,
             stroke_width=2
+        )
+        
+        # Pin support connection (thin line from roller to stem)
+        pin_support = Line(
+            start=ORIGIN,
+            end=ORIGIN,
+            color=BLUE_D,
+            stroke_width=2
+        )
+        
+        # Support base (wider rectangle at bottom)
+        support_base = Rectangle(
+            width=0.5,
+            height=0.15,
+            color=BLUE_C,
+            fill_opacity=0.6,
+            stroke_color=BLUE_D,
+            stroke_width=2
+        )
+        
+        # Guide rails (two thin vertical lines)
+        left_guide = Line(
+            start=ORIGIN + LEFT*0.08,
+            end=ORIGIN + UP*2.5,
+            color=GRAY_B,
+            stroke_width=1,
+            stroke_opacity=0.5
+        )
+        right_guide = Line(
+            start=ORIGIN + RIGHT*0.08,
+            end=ORIGIN + UP*2.5,
+            color=GRAY_B,
+            stroke_width=1,
+            stroke_opacity=0.5
         )
         
         # Contact point marker
@@ -109,7 +155,7 @@ class CamFollowerDisplacement(Scene):
         graph_axes = Axes(
             x_range=[0, 360, 90],
             y_range=[0, 2.5, 0.5],
-            x_length=5,
+            x_length=7.5,
             y_length=4,
             axis_config={
                 "color": GRAY_B,
@@ -183,18 +229,49 @@ class CamFollowerDisplacement(Scene):
         roller_center_y = initial_contact_y + roller_radius
         roller.move_to([follower_x, roller_center_y, 0])
         
+        # Position roller center pin
+        roller_center_pin.move_to([follower_x, roller_center_y, 0])
+        
+        # Position roller arc
+        roller_arc.move_to([follower_x, roller_center_y, 0])
+        
+        # Position pin support
+        pin_support.put_start_and_end_on(
+            [follower_x, roller_center_y, 0],
+            [follower_x, roller_center_y + roller_radius + stem_height/2, 0]
+        )
+        
+        # Position support base
+        support_base.move_to([follower_x, roller_center_y + roller_radius + stem_height + 0.1, 0])
+        
+        # Position guide rails
+        left_guide.put_start_and_end_on(
+            [follower_x - 0.08, roller_center_y, 0],
+            [follower_x - 0.08, roller_center_y + stem_height, 0]
+        )
+        right_guide.put_start_and_end_on(
+            [follower_x + 0.08, roller_center_y, 0],
+            [follower_x + 0.08, roller_center_y + stem_height, 0]
+        )
+        
         # Position stem above roller
         stem.move_to([follower_x, roller_center_y + roller_radius + stem_height/2, 0])
         
         # Contact point is at the bottom of the roller (touching cam surface)
         contact_dot.move_to([follower_x, initial_contact_y, 0])
         
-        # Show follower
+        # Show follower with all details
         self.play(
-            Create(roller),
+            Create(left_guide),
+            Create(right_guide),
+            Create(support_base),
             Create(stem),
+            Create(roller),
+            Create(roller_center_pin),
+            Create(roller_arc),
+            Create(pin_support),
             Create(contact_dot),
-            run_time=1
+            run_time=1.5
         )
         self.wait(0.3)
         
@@ -212,12 +289,13 @@ class CamFollowerDisplacement(Scene):
         base_y = cam_center[1] + base_radius
         
         # Animate rotation
-        num_steps = 180  # Smooth animation
+        num_steps = 120  # Optimized for smooth fast compilation
         total_angle = 2 * PI
+        rotation_step = total_angle / num_steps
         
         for i in range(num_steps + 1):
             # Current rotation angle of cam
-            current_angle = (i / num_steps) * total_angle
+            current_angle = i * rotation_step
             angle_degrees = np.degrees(current_angle)
             
             # Find contact point at current cam angle
@@ -226,6 +304,32 @@ class CamFollowerDisplacement(Scene):
             # Position roller center (roller radius above contact point)
             roller_center_y = contact_y + roller_radius
             roller.move_to([follower_x, roller_center_y, 0])
+            
+            # Update roller center pin
+            roller_center_pin.move_to([follower_x, roller_center_y, 0])
+            
+            # Update roller arc (rotation indicator)
+            roller_arc.move_to([follower_x, roller_center_y, 0])
+            roller_arc.rotate(current_angle, about_point=[follower_x, roller_center_y, 0])
+            
+            # Update pin support connection
+            pin_support.put_start_and_end_on(
+                [follower_x, roller_center_y, 0],
+                [follower_x, roller_center_y + roller_radius + stem_height/2 - stem_height/2, 0]
+            )
+            
+            # Update support base position
+            support_base.move_to([follower_x, roller_center_y + roller_radius + stem_height + 0.1, 0])
+            
+            # Update guide rails
+            left_guide.put_start_and_end_on(
+                [follower_x - 0.08, roller_center_y, 0],
+                [follower_x - 0.08, roller_center_y + stem_height, 0]
+            )
+            right_guide.put_start_and_end_on(
+                [follower_x + 0.08, roller_center_y, 0],
+                [follower_x + 0.08, roller_center_y + stem_height, 0]
+            )
             
             # Update stem position (above roller)
             stem.move_to([follower_x, roller_center_y + roller_radius + stem_height/2, 0])
@@ -236,8 +340,7 @@ class CamFollowerDisplacement(Scene):
             # Calculate displacement (vertical distance from base)
             displacement = contact_y - base_y
             # Normalize for graph (shift to positive range 0-2.5)
-            s_normalized = displacement + 1.0
-            s_normalized = max(0.1, min(s_normalized, 2.4))
+            s_normalized = np.clip(displacement + 1.0, 0.1, 2.4)
             
             # Add point to curve
             graph_point = graph_axes.c2p(angle_degrees, s_normalized)
@@ -252,33 +355,29 @@ class CamFollowerDisplacement(Scene):
             # Update graph dot
             graph_dot.move_to(graph_point)
             
-            # Update horizontal alignment line (keep Y-coordinate constant for horizontal line)
+            # Update horizontal alignment line (sync with graph point Y-coordinate)
             alignment_line.put_start_and_end_on(
-                [follower_x, contact_y, 0],
-                [graph_point[0], contact_y, 0]
+                [follower_x, graph_point[1], 0],
+                graph_point
             )
             
             # Rotate cam
-            rotation_step = total_angle / num_steps
             cam.rotate(rotation_step, about_point=cam_center)
             
-            # Smooth animation timing
-            if i % 15 == 0:
-                self.wait(0.08)
-            else:
-                self.wait(0.025)
+            # Consistent smooth timing
+            self.wait(0.04)
         
         # Highlight the complete curve
         self.play(
             displacement_curve.animate.set_stroke(width=6),
-            run_time=0.5
+            run_time=0.3
         )
         self.play(
             displacement_curve.animate.set_stroke(width=4),
-            run_time=0.5
+            run_time=0.3
         )
         
-        self.wait(2)
+        self.wait(1.5)
         
         # Conclusion
         conclusion = Text(
