@@ -1,0 +1,3 @@
+{
+    "CamFollowerDis": "class CamFollowerDis(Scene):\n    def construct(self):\n        title = Text(\n            \"Cam follower \",\n            font_size=42,\n            font_style =\n        )\n        self.play(Write(title))\n        self.wait(2)\n        self.play(FadeOut(title))"
+}

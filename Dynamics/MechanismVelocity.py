@@ -127,279 +127,186 @@ class MechanismI(Scene):
 
         self.add(axis, labels, labelsO2, O2, labelsO4, O4, link2, link3, link4, arc, value)
 
-
 from manim import *
 import numpy as np
 import sympy as sp
 
-class MechanismAnimation(Scene):
+class MechanismVelocityAnalysis(Scene):
     def construct(self):
-        """Animated version showing the mechanism in motion with velocity analysis"""
+        # --- PART 1: PHYSICS SETUP ---
+        # Coordinate system
         axis = Axes(
-            x_range=[-.4, .8, 1],
-            y_range=[-0.4, .8, 1],
-            x_length=10,
-            y_length=5,
-            tips=False,
-        )
-        axis.move_to(ORIGIN+DOWN)
-        labels = axis.get_axis_labels(
-            MathTex(r"x").scale(0.7),
-            MathTex(r"y").scale(0.7)
-        )
+            x_range=[-.4, .8, 1], y_range=[-0.4, .8, 1],
+            x_length=10, y_length=5, tips=False
+        ).move_to(ORIGIN + DOWN)
         
-        pO2 = axis.get_origin()
+        # Dimensions
         scale = 1.5
-        O4O2 = 250/100 * scale
-        pO4 = pO2 + RIGHT * O4O2
+        pO2 = axis.get_origin()
+        pO4 = pO2 + RIGHT * (250/100 * scale)
+        O2A_len = 100/100 * scale
+        BA_len = 250/100 * scale
+        BO4_len = 300/100 * scale
+        omega2 = 45 * DEGREES # rad/s
         
-        O2 = Dot(pO2, color=YELLOW)
-        O4 = Dot(pO4, color=YELLOW)
-        labelsO2 = MathTex(r"O_2").scale(0.7).move_to(pO2 + LEFT * 0.3 + DOWN * 0.3)
-        labelsO4 = MathTex(r"O_4").scale(0.7).move_to(pO4 + LEFT * 0.3 + DOWN * 0.3)
-        
-        self.add(axis, labels, O2, O4, labelsO2, labelsO4)
-        
-        # Parameters
-        O2A = 100/100 * scale
-        BA = 250/100 * scale
-        BO4 = 300/100 * scale
-        
-        # Angular velocity of link 2 (rad/s)
-        omega2 = 45 * DEGREES  # 45°/s converted to rad/s
-        
-        # Pre-calculate mechanism positions and velocities
+        # --- CALCULATE MECHANISM DATA ---
         angles = np.linspace(120*DEGREES, (120+360)*DEGREES, 120)
-        positions_A = []
-        positions_B = []
-        velocities_A = []
-        velocities_B = []
-        omega3_values = []
-        omega4_values = []
+        pos_A, pos_B, vel_A, vel_B = [], [], [], []
         
-        for i, angle in enumerate(angles):
-            pA = pO2 + O2A * np.array([np.cos(angle), np.sin(angle), 0])
+        for angle in angles:
+            # Position A
+            pa = pO2 + O2A_len * np.array([np.cos(angle), np.sin(angle), 0])
             
-            # Solve for B
-            B_x, B_y = sp.symbols('B_x B_y', real=True)
-            eq1 = (B_x - pO4[0])**2 + (B_y - pO4[1])**2 - BO4**2
-            eq2 = (B_x - pA[0])**2 + (B_y - pA[1])**2 - BA**2
-            solutions = sp.solve([eq1, eq2], (B_x, B_y))
+            # Position B (Circle intersection)
+            bx, by = sp.symbols('bx by', real=True)
+            eq1 = (bx - pO4[0])**2 + (by - pO4[1])**2 - BO4_len**2
+            eq2 = (bx - pa[0])**2 + (by - pa[1])**2 - BA_len**2
+            sols = sp.solve([eq1, eq2], (bx, by))
             
-            if len(solutions) >= 1:
-                sol1 = np.array([float(solutions[0][0]), float(solutions[0][1]), 0])
-                if len(solutions) == 2:
-                    sol2 = np.array([float(solutions[1][0]), float(solutions[1][1]), 0])
-                    pB = sol1 if sol1[1] >= sol2[1] else sol2
-                else:
-                    pB = sol1
-            else:
-                pB = pA + RIGHT * BA
+            # Pick correct solution
+            if len(sols) >= 1:
+                s1 = np.array([float(sols[0][0]), float(sols[0][1]), 0])
+                if len(sols) == 2:
+                    s2 = np.array([float(sols[1][0]), float(sols[1][1]), 0])
+                    pb = s1 if s1[1] >= s2[1] else s2
+                else: pb = s1
+            else: pb = pa + RIGHT * BA_len
             
-            positions_A.append(pA)
-            positions_B.append(pB)
+            pos_A.append(pa)
+            pos_B.append(pb)
             
-            # Calculate velocities
-            # V_A = omega2 × r_A (cross product in 2D: perpendicular to radius)
-            r_A = pA - pO2
-            v_A = omega2 * np.array([-r_A[1], r_A[0], 0])  # Perpendicular, magnitude = omega2 * r
-            velocities_A.append(v_A)
+            # Velocity A
+            ra = pa - pO2
+            va = omega2 * np.array([-ra[1], ra[0], 0])
+            vel_A.append(va)
             
-            # Calculate omega3 and omega4 using velocity analysis
-            # V_B = V_A + omega3 × r_BA  (velocity of B relative to A)
-            # V_B = omega4 × r_BO4        (velocity of B about O4)
-            r_BA = pB - pA
-            r_BO4 = pB - pO4
+            # Velocity B (Matrix method)
+            r_ba = pb - pa
+            r_bo4 = pb - pO4
+            if np.linalg.norm(r_ba[:2]) > 0.01:
+                mat = np.column_stack([[-r_ba[1], r_ba[0]], [-(-r_bo4[1]), -r_bo4[0]]])
+                if abs(np.linalg.det(mat)) > 0.01:
+                    w = np.linalg.solve(mat, -va[:2])
+                    omega3 = w[0]
+                else: omega3 = 0
+            else: omega3 = 0
             
-            # Using relative velocity equation
-            # V_A + omega3 × r_BA = omega4 × r_BO4
-            # Rearranging: omega3 × r_BA - omega4 × r_BO4 = -V_A
-            
-            # In 2D: omega × r = omega * [-r_y, r_x]
-            # So: omega3 * [-r_BA_y, r_BA_x] - omega4 * [-r_BO4_y, r_BO4_x] = -v_A
-            
-            if np.linalg.norm(r_BA[:2]) > 0.01 and np.linalg.norm(r_BO4[:2]) > 0.01:
-                # Matrix: [r_BA_perp | -r_BO4_perp] · [omega3; omega4] = -v_A
-                r_BA_perp = np.array([-r_BA[1], r_BA[0]])
-                r_BO4_perp = np.array([-r_BO4[1], r_BO4[0]])
-                
-                A_mat = np.column_stack([r_BA_perp, -r_BO4_perp])
-                if np.abs(np.linalg.det(A_mat)) > 0.01:
-                    omega_vals = np.linalg.solve(A_mat, -v_A[:2])
-                    omega3 = omega_vals[0]
-                    omega4 = omega_vals[1]
-                else:
-                    omega3 = 0
-                    omega4 = 0
-            else:
-                omega3 = 0
-                omega4 = 0
-            
-            omega3_values.append(omega3)
-            omega4_values.append(omega4)
-            
-            # Calculate V_B using either equation (they should give same result)
-            # V_B = V_A + omega3 × r_BA
-            v_B_from_A = v_A + omega3 * np.array([-r_BA[1], r_BA[0], 0])
-            velocities_B.append(v_B_from_A)
+            vb = va + omega3 * np.array([-r_ba[1], r_ba[0], 0])
+            vel_B.append(vb)
+
+        # --- ANIMATION PART 1: MOVING MECHANISM ---
+        tracker = ValueTracker(120*DEGREES)
         
-        # Create updatable mechanism
-        angle_tracker = ValueTracker(120*DEGREES)
+        def get_idx():
+            val = tracker.get_value()
+            idx = int(((val - 120*DEGREES)/(360*DEGREES)) * (len(angles)-1))
+            return min(max(idx,0), len(angles)-1)
+
+        # Live components
+        ln2 = always_redraw(lambda: Line(pO2, pos_A[get_idx()], color=BLUE, stroke_width=4))
+        ptA = always_redraw(lambda: Dot(pos_A[get_idx()], color=BLUE))
+        ln3 = always_redraw(lambda: Line(pos_A[get_idx()], pos_B[get_idx()], color=GREEN, stroke_width=4))
+        ptB = always_redraw(lambda: Dot(pos_B[get_idx()], color=GREEN))
+        ln4 = always_redraw(lambda: Line(pos_B[get_idx()], pO4, color=RED, stroke_width=4))
         
-        def get_index():
-            angle_val = angle_tracker.get_value()
-            idx = int(((angle_val - 120*DEGREES) / (360*DEGREES)) * (len(angles) - 1))
-            return min(max(idx, 0), len(angles) - 1)
+        # Labels
+        lbl_O2 = MathTex(r"O_2").scale(0.6).next_to(pO2, DL, 0.1)
+        lbl_O4 = MathTex(r"O_4").scale(0.6).next_to(pO4, DR, 0.1)
         
-        def get_mechanism_data():
-            idx = get_index()
-            return (positions_A[idx], positions_B[idx], 
-                    velocities_A[idx], velocities_B[idx],
-                    omega3_values[idx], omega4_values[idx])
+        self.add(axis, Dot(pO2), Dot(pO4), lbl_O2, lbl_O4, ln2, ptA, ln3, ptB, ln4)
         
-        # Create paths
-        path_A = TracedPath(
-            lambda: get_mechanism_data()[0],
-            stroke_color=BLUE,
-            stroke_width=2,
-            stroke_opacity=0.6
+        # Play one rotation
+        self.play(tracker.animate.set_value((120+360)*DEGREES), run_time=4, rate_func=linear)
+        self.play(tracker.animate.set_value(120*DEGREES), run_time=0.5)
+        self.wait(0.2)
+
+        # --- PART 2: STATIC SNAPSHOT ---
+        # Get data at current frame (120 degrees)
+        c_pa, c_pb = pos_A[0], pos_B[0]
+        c_va, c_vb = vel_A[0], vel_B[0]
+        
+        self.remove(ln2, ptA, ln3, ptB, ln4) # Remove live objects
+        
+        # Build Static Group
+        mech_scale = 0.7
+        
+        # Angle Arc and Label
+        angle_arc = Angle(
+            Line(pO2, pO2+RIGHT), 
+            Line(pO2, c_pa), 
+            radius=0.4, color=YELLOW
+        )
+        angle_lbl = MathTex(r"120^\circ", color=YELLOW).scale(0.5).next_to(angle_arc, UR, buff=0.05)
+
+        s_grp = VGroup(
+            axis, Dot(pO2), Dot(pO4), lbl_O2, lbl_O4,
+            Line(pO2, c_pa, color=BLUE, stroke_width=4),
+            Dot(c_pa, color=BLUE), MathTex("A").scale(0.6).next_to(c_pa, UL, 0.1),
+            Line(c_pa, c_pb, color=GREEN, stroke_width=4),
+            Dot(c_pb, color=GREEN), MathTex("B").scale(0.6).next_to(c_pb, UR, 0.1),
+            Line(c_pb, pO4, color=RED, stroke_width=4),
+            angle_arc, angle_lbl
         )
         
-        path_B = TracedPath(
-            lambda: get_mechanism_data()[1],
-            stroke_color=GREEN,
-            stroke_width=2,
-            stroke_opacity=0.6
-        )
+        # Add tiny reference arrows on mechanism
+        ref_va = Arrow(c_pa, c_pa + c_va*0.3, color=BLUE, buff=0, stroke_width=2)
+        ref_vb = Arrow(c_pb, c_pb + c_vb*0.3, color=RED, buff=0, stroke_width=2)
+        s_grp.add(ref_va, ref_vb)
+
+        self.add(s_grp)
         
-        # Create mechanism parts
-        link2 = always_redraw(lambda: Line(
-            pO2,
-            get_mechanism_data()[0],
-            color=BLUE,
-            stroke_width=4
-        ))
+        # Move Mechanism Left
+        self.play(s_grp.animate.scale(mech_scale).to_edge(LEFT, buff=0.5))
         
-        pointA = always_redraw(lambda: Dot(
-            get_mechanism_data()[0],
-            color=BLUE,
-            radius=0.08
-        ))
+        # --- PART 3: VELOCITY POLYGON ---
         
-        labelA = always_redraw(lambda: MathTex(r"A").scale(0.7).next_to(
-            get_mechanism_data()[0],
-            UP * 0.5 + LEFT * 0.3
-        ))
+        # New Position: High and Right (vectors point down-left at 120deg)
+        origin_poly = RIGHT * 3.5 + UP * 1.5
+        v_scale = 3.0  # Big scale
         
-        link3 = always_redraw(lambda: Line(
-            get_mechanism_data()[0],
-            get_mechanism_data()[1],
-            color=GREEN,
-            stroke_width=4
-        ))
+        # Origin
+        dot_o = Dot(origin_poly, color=WHITE)
+        lbl_o = MathTex("o").scale(0.7).next_to(dot_o, UR, 0.1)
+        self.play(FadeIn(dot_o), Write(lbl_o))
         
-        pointB = always_redraw(lambda: Dot(
-            get_mechanism_data()[1],
-            color=GREEN,
-            radius=0.08
-        ))
+        # 1. V_A (Absolute)
+        # Transform from mechanism arrow to polygon arrow
+        vec_a_target = np.array([c_va[0], c_va[1], 0]) * v_scale
+        arrow_va = Arrow(origin_poly, origin_poly + vec_a_target, color=BLUE, buff=0, stroke_width=4)
         
-        labelB = always_redraw(lambda: MathTex(r"B").scale(0.7).next_to(
-            get_mechanism_data()[1],
-            UP * 0.5 + RIGHT * 0.3
-        ))
+        # Proxy for transform
+        proxy_va = Arrow(s_grp[-2].get_start(), s_grp[-2].get_end(), color=BLUE, buff=0, stroke_width=2)
         
-        link4 = always_redraw(lambda: Line(
-            get_mechanism_data()[1],
-            pO4,
-            color=RED,
-            stroke_width=4
-        ))
+        lbl_va = MathTex(f"\\vec{{V}}_A ({np.linalg.norm(c_va):.2f})", color=BLUE).scale(0.6).next_to(arrow_va.get_center(), LEFT, 0.3)
         
-        # Angle arc and value
-        arc = always_redraw(lambda: Arc(
-            radius=0.5,
-            start_angle=0*DEGREES,
-            angle=angle_tracker.get_value(),
-            arc_center=pO2,
-            color=YELLOW
-        ))
+        self.play(ReplacementTransform(proxy_va, arrow_va), FadeIn(lbl_va))
         
-        angle_value = always_redraw(lambda: DecimalNumber(
-            angle_tracker.get_value() * 180 / PI,
-            num_decimal_places=1,
-            unit=r"^{\circ}"
-        ).scale(0.6).next_to(arc.get_end() + UP * 0.15 + RIGHT * 0.15))
+        dot_a = Dot(arrow_va.get_end(), color=BLUE, radius=0.06)
+        lbl_pt_a = MathTex("a").scale(0.6).next_to(dot_a, LEFT, 0.1)
+        self.add(dot_a, lbl_pt_a)
         
-        # Velocity vectors with actual magnitude
-        def get_velocity_arrow_A():
-            pA, pB, vA, vB, omega3, omega4 = get_mechanism_data()
-            v_mag = np.linalg.norm(vA)
-            if v_mag > 0.01:
-                v_dir = vA / v_mag
-                # Scale for visualization (0.5 units per unit velocity)
-                arrow = Arrow(
-                    pA,
-                    pA + v_dir * v_mag * 0.5,
-                    color=BLUE,
-                    buff=0,
-                    stroke_width=4,
-                    max_tip_length_to_length_ratio=0.2
-                )
-                return arrow
-            return VGroup()
+        # 2. V_BA (Relative)
+        vec_ba = c_vb - c_va
+        vec_ba_target = np.array([vec_ba[0], vec_ba[1], 0]) * v_scale
+        arrow_vba = Arrow(arrow_va.get_end(), arrow_va.get_end() + vec_ba_target, color=GREEN, buff=0, stroke_width=4)
         
-        velocity_arrow_A = always_redraw(get_velocity_arrow_A)
+        lbl_vba = MathTex(r"\vec{V}_{BA}", color=GREEN).scale(0.6).next_to(arrow_vba, DOWN, 0.1)
         
-        def get_velocity_arrow_B():
-            pA, pB, vA, vB, omega3, omega4 = get_mechanism_data()
-            v_mag = np.linalg.norm(vB)
-            if v_mag > 0.01:
-                v_dir = vB / v_mag
-                arrow = Arrow(
-                    pB,
-                    pB + v_dir * v_mag * 0.5,
-                    color=GREEN,
-                    buff=0,
-                    stroke_width=4,
-                    max_tip_length_to_length_ratio=0.2
-                )
-                return arrow
-            return VGroup()
+        self.play(GrowArrow(arrow_vba), Write(lbl_vba))
         
-        velocity_arrow_B = always_redraw(get_velocity_arrow_B)
+        dot_b = Dot(arrow_vba.get_end(), color=GREEN, radius=0.06)
+        lbl_pt_b = MathTex("b").scale(0.6).next_to(dot_b, DOWN, 0.1)
+        self.add(dot_b, lbl_pt_b)
         
-        # Velocity magnitude labels
-        v_A_label = always_redraw(lambda: DecimalNumber(
-            np.linalg.norm(get_mechanism_data()[2]),
-            num_decimal_places=2,
-        ).scale(0.5).next_to(get_mechanism_data()[0] + get_mechanism_data()[2] * 0.5 * 0.5, UP * 0.3).set_color(BLUE))
+        # 3. V_B (Resultant)
+        vec_b_target = np.array([c_vb[0], c_vb[1], 0]) * v_scale
+        arrow_vb = Arrow(origin_poly, origin_poly + vec_b_target, color=RED, buff=0, stroke_width=4)
         
-        v_B_label = always_redraw(lambda: DecimalNumber(
-            np.linalg.norm(get_mechanism_data()[3]),
-            num_decimal_places=2,
-        ).scale(0.5).next_to(get_mechanism_data()[1] + get_mechanism_data()[3] * 0.5 * 0.5, DOWN * 0.3).set_color(GREEN))
+        # Proxy for transform
+        proxy_vb = Arrow(s_grp[-1].get_start(), s_grp[-1].get_end(), color=RED, buff=0, stroke_width=2)
         
-        # Angular velocity display
-        # omega_display = VGroup(
-        #     MathTex(r"\omega_2 = 45^{\circ}/s", color=BLUE).scale(0.6),
-        #     always_redraw(lambda: MathTex(
-        #         r"\omega_3 = " + f"{get_mechanism_data()[4] * 180 / PI:.1f}" + r"^{\circ}/s",
-        #         color=GREEN
-        #     ).scale(0.6)),
-        #     always_redraw(lambda: MathTex(
-        #         r"\omega_4 = " + f"{get_mechanism_data()[5] * 180 / PI:.1f}" + r"^{\circ}/s",
-        #         color=RED
-        #     ).scale(0.6))
-        # ).arrange(DOWN, aligned_edge=LEFT).to_corner(UL)
+        lbl_vb = MathTex(f"\\vec{{V}}_B ({np.linalg.norm(c_vb):.2f})", color=RED).scale(0.6).next_to(arrow_vb.get_center(), RIGHT, 0.3)
         
-        self.add(path_A, path_B)
-        self.add(link2, pointA, labelA, link3, pointB, labelB, link4)
-        self.add(arc, angle_value)
-        self.add(velocity_arrow_A, velocity_arrow_B)
-        self.add(v_A_label, v_B_label)
-        # self.add(omega_display)
+        self.play(ReplacementTransform(proxy_vb, arrow_vb), FadeIn(lbl_vb))
         
-        # Animate full rotation at constant angular velocity
-        self.play(angle_tracker.animate.set_value((120+360)*DEGREES), run_time=10, rate_func=linear)
-        self.wait()
+        self.wait(3)
