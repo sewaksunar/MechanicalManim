@@ -1,0 +1,2 @@
+# Basic idea
+The main reason behind seeking approximate solution on a collection of subdomains is the fact that it is easier to represent a complicated function as a collection of simple polynomials, as can be seen from Fig. 1.4.1. Of course, each individual segment of the solution should fit with its neighbors in the sense that the function and possibly derivatives up to a chosen order are continuous at the connecting points. These ideas will be more clear in the sequel.
