@@ -1,0 +1,3 @@
+{
+    "Cuve": "class Cuve(Scene):\n    def construct(self):\n        axes = Axes(x_range=(0, 1, 0.2), y_range=(-1, 1, 0.5))\n        self.play(Create(axes))\n        curve = Curve(lambda t: [t, np.sin(2 * np.pi * t), 0], color=RED)\n        self.play(Create(curve))\n        self.wait()"
+}
