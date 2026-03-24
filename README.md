@@ -31,12 +31,9 @@ manim -pql text.py TextMoving
 ```
 
 **Video Preview:**
-<video width="480" controls>
-  <source src="Tutorial/media/videos/text/480p15/TextMoving.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Play Video](https://img.shields.io/badge/Play-Video-blue?style=for-the-badge)](Tutorial/media/videos/text/480p15/TextMoving.mp4)
 
-Generated video: `Tutorial/media/videos/text/480p15/TextMoving.mp4`
+Or view the video file directly: [TextMoving.mp4](Tutorial/media/videos/text/480p15/TextMoving.mp4)
 
 # Starting a new project
 first start the virtual enviroment
