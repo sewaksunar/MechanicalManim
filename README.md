@@ -29,6 +29,13 @@ A simple animation demonstrating text rendering in Manim.
 cd Tutorial
 manim -pql text.py TextMoving
 ```
+
+**Video Preview:**
+<video width="480" controls>
+  <source src="Tutorial/media/videos/text/480p15/TextMoving.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 Generated video: `Tutorial/media/videos/text/480p15/TextMoving.mp4`
 
 # Starting a new project
