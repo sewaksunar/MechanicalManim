@@ -23,6 +23,9 @@ wheels/
 *.mpeg
 *.3gp
 
+# Exception: Include this specific video for README
+!Tutorial/media/videos/text/480p15/TextMoving.mp4
+
 # Image files
 *.png
 *.jpg
