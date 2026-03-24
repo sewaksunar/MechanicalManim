@@ -1,5 +1,17 @@
-# Setup
-```
+# Manimations - Mechanical Engineering Animations
+
+A collection of animations created with **Manim Community** for visualizing mechanical engineering concepts, dynamics, statics, and more.
+
+## Current Setup
+
+**Project Environment:**
+- **Package Manager:** `uv` (fast Python package manager)
+- **Python Version:** 3.13.5
+- **Manim Version:** 0.20.1
+- **Virtual Environment Location:** `.venv/`
+
+## Installation & Setup
+```bash
 uv init --python 3.13 manimations
 cd manimations
 uv add manim
@@ -8,6 +20,16 @@ uv add manim
 ```
 uv run manim checkhealth
 ```
+
+## Sample Animation
+
+**Tutorial - Text Animation:**
+A simple animation demonstrating text rendering in Manim.
+```
+cd Tutorial
+manim -pql text.py TextMoving
+```
+Generated video: `Tutorial/media/videos/text/480p15/TextMoving.mp4`
 
 # Starting a new project
 first start the virtual enviroment
