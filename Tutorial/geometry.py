@@ -1,15 +1,15 @@
 from manim import *
 import numpy as np
 import sympy as sp
-from sympy.geometry import Point, Line as SpLine, Segment
+from sympy.geometry import Point as SymPoint, Line as SpLine, Segment
 
 class pythagorean_theorem(Scene):
     def cad_dimension(self, start, end, label_text, offset_val=0.5, scale=0.7, 
                             arrow_size=0.15, ext_line_extension=0.1):
         """Creates a CAD-style dimension with extension lines, arrows, and text."""
         # Convert to sympy Points for exact geometry
-        p1 = Point(float(start[0]), float(start[1]))
-        p2 = Point(float(end[0]), float(end[1]))
+        p1 = SymPoint(float(start[0]), float(start[1]))
+        p2 = SymPoint(float(end[0]), float(end[1]))
         
         # Create the main segment
         main_seg = Segment(p1, p2)

@@ -1,0 +1,4 @@
+{
+    "TextMoving": "class TextMoving(Scene):\n    def construct(self):\n        text = Text(\"Hello World\")\n        self.add(text)\n        self.play(FadeIn(text))\n        self.wait()",
+    "CustomAnimation": "class CustomAnimation(Scene):\n    def construct(self):\n        shape = Circle(color=BLUE, fill_opacity=0.7)\n        self.play(Create(shape))\n        self.play(shape.animate.move_to(RIGHT))\n        self.wait()\n        text = Text(\"Circle\")\n        self.play(Write(text))"
+}

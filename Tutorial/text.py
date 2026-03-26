@@ -1,8 +1,9 @@
-from manim import *
+from manim_voiceover import VoiceoverScene
+from manim_voiceover.services.gtts import GTTSService
 
-class TextMoving(Scene):
+class MyAwesomeScene(VoiceoverScene):
     def construct(self):
-        text = Text("Hello World")
-        self.add(text)
-        self.play(FadeIn(text))
-        self.wait()
+        self.set_speech_service(GTTSService())
+
+        with self.voiceover(text="This circle is drawn as I speak.") as tracker:
+            self.play(Create(circle))
