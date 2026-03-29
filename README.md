@@ -4,17 +4,61 @@ A collection of animations created with **Manim Community** for visualizing mech
 
 ---
 
+## 📖 Project Description
+
+**MechanicalManim** is a Python-based project that uses the [Manim Community](https://www.manim.community/) animation engine to create high-quality, mathematically precise animations and visualizations of core mechanical engineering topics.
+
+The project is organized by engineering discipline, with each module containing standalone scenes that can be rendered as video files for educational or presentation purposes. Animations range from kinematic mechanism analysis and gear design, to fluid dynamics simulations, thermodynamic processes, stress transformations, and finite element mesh generation.
+
+### 🎯 What This Project Does
+
+| Discipline | Examples |
+|---|---|
+| **Dynamics** | Four-bar linkages, slider-crank mechanisms, involute gear profiles, velocity polygons, cam design |
+| **Statics** | Free body diagrams, beam reactions under moving loads, 2D stress transformation, shear/normal force plots |
+| **Fluid Mechanics** | Navier-Stokes flow simulation, turbine/pump blade visualizations |
+| **Thermodynamics** | Isobaric gas expansion with particle simulation and heat source animations |
+| **Mathematics** | Formula derivations, parametric plots, and step-by-step mathematical breakdowns |
+| **FEM** | Delaunay-triangulated mesh generation and 2D domain discretization |
+| **Theory of Machines** | Kutzbach criterion, velocity diagrams, dynamic balancing of rotating machinery |
+| **Tutorials** | Text, geometry, voiceover/narration examples for learning Manim |
+
+### 🔑 Key Features
+
+- **Mathematical precision** — gear involutes, kinematic circle-intersection solvers, stress tensor rotations
+- **Parametric animations** — value-tracker-driven simulations (e.g., load position, volume expansion)
+- **Fluid simulation** — grid-based incompressible Navier-Stokes solver with diffusion/advection
+- **FEM meshing** — Delaunay triangulation via `scipy` for finite element domain visualization
+- **Voice narration** — `manim_voiceover` integration with GTTS for spoken explanations
+- **Organized by topic** — each engineering discipline lives in its own directory
+
+### 📂 Module Overview
+
+| Directory | Description |
+|---|---|
+| `Dynamics/` | Mechanism animations: four-bar linkages, slider-cranks, gears, cams, velocity analysis |
+| `Statics/` | Force analysis: free body diagrams, beam reactions, 2D stress transformation |
+| `Fluid/` | Fluid flow: Navier-Stokes simulation, blade visualizations |
+| `Thermodynamics/` | Thermodynamic processes: isobaric gas expansion with particle motion |
+| `Math/` | Mathematical concept visualizations and derivations |
+| `Tutorial/` | Manim learning examples: text, geometry, voiceover integration |
+| `fem/` | Finite element method: Delaunay mesh generation and domain visualization |
+| `tmm/` | Theory of machines: linkage DOF, velocity diagrams, dynamic balancing |
+
+---
+
 ## 📋 Table of Contents
-1. [Project Environment](#project-environment)
-2. [Initial Setup](#initial-setup)
-3. [Activation & Verification](#activation--verification)
-4. [Working with Environments](#working-with-environments)
-5. [GitHub Setup](#github-setup)
-6. [Quick Start](#quick-start)
-7. [Project Workflow](#project-workflow)
-8. [File Structure](#file-structure)
-9. [Troubleshooting](#troubleshooting)
-10. [Sample Animation](#sample-animation)
+1. [Project Description](#-project-description)
+2. [Project Environment](#project-environment)
+3. [Initial Setup](#initial-setup)
+4. [Activation & Verification](#activation--verification)
+5. [Working with Environments](#working-with-environments)
+6. [GitHub Setup](#github-setup)
+7. [Quick Start](#quick-start)
+8. [Project Workflow](#project-workflow)
+9. [File Structure](#file-structure)
+10. [Troubleshooting](#troubleshooting)
+11. [Sample Animation](#sample-animation)
 
 ---
 
