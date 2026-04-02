@@ -70,7 +70,7 @@ uv run manim -pql Tutorial/text.py TextMoving
 
 Sample render from the Tutorial module:
 
-<video src="Tutorial/media/videos/text/480p15/TextMoving.mp4" controls width="760"></video>
+<video src="[Tutorial/media/videos/text/480p15/TextMoving.mp4](https://github.com/sewaksunar/MechanicalManim/blob/main/Tutorial/media/videos/text/480p15/TextMoving.mp4)" controls width="760"></video>
 
 ## Project Structure
 
