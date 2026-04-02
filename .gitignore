@@ -24,7 +24,6 @@ wheels/
 
 # Exception: Include this specific video for README
 !Tutorial/media/videos/text/480p15/TextMoving.mp4
-!SliderCrankMechanism.gif
 
 # Image files
 *.png
@@ -42,3 +41,5 @@ wheels/
 
 *.txt
 *.pdf
+
+!SliderCrankMechanism.gif
