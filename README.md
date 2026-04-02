@@ -70,7 +70,10 @@ uv run manim -pql Tutorial/text.py TextMoving
 
 Sample render from the Tutorial module:
 
-<video src="Tutorial/media/videos/text/480p15/TextMoving.mp4" controls width="760"></video>
+<video controls width="760" preload="metadata">
+	<source src="https://raw.githubusercontent.com/sewaksunar/MechanicalManim/main/Tutorial/media/videos/text/480p15/TextMoving.mp4" type="video/mp4" />
+	Your browser does not support the video tag.
+</video>
 
 ## Project Structure
 
