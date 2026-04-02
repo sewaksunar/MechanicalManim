@@ -43,3 +43,4 @@ wheels/
 *.pdf
 
 !SliderCrankMechanism.gif
+!TextMoving.mp4
