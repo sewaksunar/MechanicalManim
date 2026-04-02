@@ -70,7 +70,9 @@ uv run manim -pql Tutorial/text.py TextMoving
 
 Sample render from the Tutorial module:
 
-<video src="Tutorial/media/videos/text/480p15/TextMoving.mp4" controls width="760"></video>
+<p align="center">
+	<img src="https://raw.githubusercontent.com/sewaksunar/MechanicalManim/main/SliderCrankMechanism.gif" width="760" alt="SliderCrank mechanism preview" />
+</p>
 
 ## Project Structure
 
