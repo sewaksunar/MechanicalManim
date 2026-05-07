@@ -1,0 +1,4 @@
+{
+    "Name": "class Name(Scene):\n    def construct(self):\n        letters = [Text(letter) for letter in \"Sewak Sunar\"]\n        letters_group = VGroup(*letters).arrange(RIGHT, buff=0.2)\n        letters = list(letters_group)\n        self.play(Letters(letters), run_time=2)\n        self.wait(2)",
+    "BeamScene": "class BeamScene(Scene):\n    def construct(self):\n        L = 4\n        t = 0.5\n        lines = []\n        for y in np.linspace(-t/2, t/2, 10):\n            line = Line(ORIGIN, RIGHT * L).shift(UP * y)\n            lines.append(line)\n        beam = VGroup(*lines)\n        self.play(Beam(beam, E=5, I=1, P=0.1, L=L), run_time=2)\n        self.wait(2)\n        middle_line = Line(ORIGIN, RIGHT * L*1.5).set_color(RED)\n        self.play(Create(middle_line))\n        middle_line_deflection = Line(ORIGIN, RIGHT * L).set_color(RED)\n        self.play(Beam(middle_line_deflection, E=5, I=1, P=0.1, L=L*1.5), run_time=1)\n        self.wait(2)"
+}
