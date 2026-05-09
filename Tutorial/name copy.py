@@ -96,7 +96,7 @@ class Beam(Animation):
     def interpolate_mobject(self, alpha):
         # deflection at x point from fixed end
         # y = - (P * x^2) / (6 * E * I) * (3L - x)
-        # Fixed end is at x=0 (left/start), free end is at x=L (right/end)
+        # Fixed end is at x=0 (start), free end is at x=L (end)
 
         if self.span_len == 0:
             return
@@ -110,10 +110,8 @@ class Beam(Animation):
             points = []
 
             for x in x_targets:
-                # Use xi measured from the fixed end (left side in this scene).
-                xi = x
-                y_deflection = -(k * xi**2) * (3.0 * self.span_len - xi) * alpha
-                slope = -(3.0 * k * xi) * (2.0 * self.span_len - xi) * alpha
+                y_deflection = -(k * x**2) * (3.0 * self.span_len - x) * alpha
+                slope = -(3.0 * k * x) * (2.0 * self.span_len - x) * alpha
 
                 center_pt = self.center_start + self.tangent0 * x + self.normal0 * y_deflection
 
@@ -130,99 +128,25 @@ class BeamScene(Scene):
         
         # Create multiple lines bundled together to form a thick beam
         lines = []
-        for y in np.linspace(-t/2, t/2, 30):
-            line = Line(ORIGIN, RIGHT * L).shift(UP * y).set_color(ORANGE).set_opacity(1).set_stroke(width=2)
+        for y in np.linspace(-t/2, t/2, 10):
+            line = Line(ORIGIN, RIGHT * L).shift(UP * y)
             lines.append(line)
         
         # Group all lines together
         beam = VGroup(*lines)
 
         beam.move_to(ORIGIN)
-
-        ref_line = lines[len(lines) // 2]
-        top_line = lines[-1]
-        fixed_end = ref_line.get_start()
-        free_end = ref_line.get_end()
-
-        wall = Rectangle(width=0.22, height=1.4, stroke_width=2).set_fill(BLUE_E, opacity=0.5)
-
-        desired_origin = np.array([fixed_end[0], ref_line.get_center()[1], 0.0])
-
-        axes = Axes(
-            x_range=[0, L*1.5, 1],
-            y_range=[-t*3, t*3, 1],
-            x_length=L*1.5,
-            y_length=t*8,
-            axis_config={"include_ticks": False, "include_numbers": False}            
-        )
-
-        axes.shift(desired_origin - axes.c2p(0, 0))
-        wall.align_to(axes.c2p(0, 0), RIGHT)
-        wall.set_y(axes.c2p(0, 0)[1])
-
-        y_label = axes.get_y_axis_label(
-            Tex("$y$").scale(0.65),
-            edge=UP,
-            direction=UP,
-            buff=0.1,
-        )
-        x_label = axes.get_x_axis_label(
-            Tex("$x$").scale(0.65),
-            edge=RIGHT,
-            direction=RIGHT,
-            buff=0.1,
-        )
-        
-
-        # Keep the wall pinned to the y-axis, and move beam so its fixed end touches the wall.
-        beam_shift_x = wall.get_right()[0] - fixed_end[0]
-        beam.shift(RIGHT * beam_shift_x)
-        beam.shift(UP * (axes.c2p(0, 0)[1] - ref_line.get_center()[1]))
-        fixed_end = ref_line.get_start()
-        free_end = ref_line.get_end()
-
-        load_arrow = always_redraw(
-            lambda: Arrow(
-                top_line.get_end() + UP * 0.9,
-                top_line.get_end(),
-                buff=0,
-                stroke_width=4,
-                color=RED,
-            )
-        )
-        p_label = always_redraw(
-            lambda: MathTex("P", color=RED).scale(0.7).next_to(load_arrow, RIGHT, buff=0.08)
-        )
-
-        sec_pt = fixed_end + RIGHT * (0.35 * L)
-        section_line = DashedLine(sec_pt + UP * 0.8, sec_pt + DOWN * 0.8, dash_length=0.08, color=GRAY_B)
-        x_top_label = MathTex("X").scale(0.55).next_to(section_line, UP, buff=0.04)
-        x_bottom_label = MathTex("X").scale(0.55).next_to(section_line, DOWN, buff=0.04)
-
-        x_dim = DoubleArrow(
-            fixed_end + DOWN * 0.7,
-            sec_pt + DOWN * 0.7,
-            buff=0,
-            stroke_width=1.6,
-            tip_length=0.08,
-        )
-        x_dim_label = MathTex("x").scale(0.6).next_to(x_dim, DOWN, buff=0.07)
-
-        # Dimension for the full length L
-        end_free_pt = fixed_end + RIGHT *  L
-        dim_extension_line_free_end = DashedLine(end_free_pt + UP * t/2, end_free_pt + DOWN * 2, dash_length=0.08, color=GRAY_B)
-
-        l_dim = DoubleArrow(
-            fixed_end + DOWN*1.8,
-            free_end + DOWN*1.8,
-            buff=0,
-            stroke_width=1.6,
-            tip_length=0.08,
-        )
-        l_dim_label = MathTex("L").scale(0.7).next_to(l_dim, DOWN, buff=0.06)
-
-        self.add(wall, beam, x_label, y_label, axes, section_line, dim_extension_line_free_end, x_top_label, x_bottom_label, x_dim, x_dim_label, l_dim, l_dim_label)
-        self.play(FadeIn(load_arrow), FadeIn(p_label), run_time=0.8)
         
         self.play(Beam(beam, E=5, I=1, P=0.1, L=L), run_time=2, rate_func=linear)
         self.wait(2)
+
+        ref_line = lines[len(lines) // 2]
+        middle_line = Line(ref_line.get_start(), ref_line.get_start() + RIGHT * L).set_color(RED)
+        self.play(Create(middle_line))
+
+        self.play(Beam(middle_line, E=5, I=1, P=0.1, L=L), run_time=1, rate_func=linear)
+        self.wait(2)
+
+        # force vector
+        force_vec = Arrow(ref_line.get_end(), ref_line.get_end() + UP * 0.5, buff=0).set_color(YELLOW)
+        self.play(Create(force_vec))
