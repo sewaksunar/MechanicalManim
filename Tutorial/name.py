@@ -226,3 +226,33 @@ class BeamScene(Scene):
         
         self.play(Beam(beam, E=5, I=1, P=0.1, L=L), run_time=2, rate_func=linear)
         self.wait(2)
+
+## SYMMETRIC MEMBERS IN PURE BENDING
+class BeamLoadingMiddle(Scene):
+    def construct(self):
+        axes_origin = LEFT* 2
+        L = 4  # Length of the beam
+        t = 0.5  # Thickness of the beam
+        axes = Axes(
+            x_range=[0, L*1.5, 1],
+            y_range=[-t*3, t*3, 1],
+            x_length=L*1.5,
+            y_length=t*8,
+            axis_config={"include_ticks": False, "include_numbers": False}            
+        )
+
+        axes.shift(axes_origin - axes.c2p(0, 0))
+        y_label = axes.get_y_axis_label(
+            Tex("$y$").scale(0.65),
+            edge=UP,
+            direction=UP,
+            buff=0.1,
+        )
+        x_label = axes.get_x_axis_label(
+            Tex("$x$").scale(0.65),
+            edge=RIGHT,
+            direction=RIGHT,
+            buff=0.1,
+        )
+        self.add(axes, x_label, y_label)
+
