@@ -1,6 +1,45 @@
 ## SYMMETRIC MEMBERS IN PURE BENDING
 from manim import *
 
+class BeamBending(Animation):
+    def __init__(self, beam, neutral_line, rho, L, **kwargs):
+        super().__init__(beam, **kwargs)
+        self.rho = rho
+        self.L = L
+        # Snapshot everything BEFORE animation mutates anything
+        self.neutral_center = neutral_line.get_center().copy()
+        self.fiber_data = [
+            {
+                "y_offset": line.get_center()[1] - neutral_line.get_center()[1],
+                "color":    line.get_color(),
+                "sw":       line.get_stroke_width(),
+            }
+            for line in beam
+        ]
+
+    def interpolate_mobject(self, alpha):
+        circle_center = self.neutral_center + UP * self.rho
+        theta_total   = self.L / self.rho
+        span          = max(theta_total * alpha, 1e-9)   # avoid zero-range crash
+        t_range       = [-span / 2, span / 2]
+
+        bent = VGroup()
+        for fd in self.fiber_data:
+            y   = fd["y_offset"]          # signed distance from neutral axis
+            r   = self.rho - y            # radius for this fiber
+            curve = ParametricFunction(
+                lambda t, r=r: (           # r=r fixes the closure capture
+                    circle_center
+                    + RIGHT * r * np.sin(t)
+                    - UP    * r * np.cos(t)
+                ),
+                t_range=t_range,
+                color=fd["color"],
+                stroke_width=fd["sw"],
+            )
+            bent.add(curve)
+
+        self.mobject.become(bent)
 
 class PureBending(Scene):
     def construct(self):
@@ -155,6 +194,7 @@ class PureBending(Scene):
             stroke_width=2
         )
 
+
         neutral_line_center_circle = np.array(neutral_line.get_center())
         neutral_line_center_circle += np.array([0, rho, 0])
         self.add(Dot(neutral_line_center_circle, color=RED, radius=0.05))
@@ -204,4 +244,9 @@ class PureBending(Scene):
             stroke_width=2,
         )
         self.add(d_cross_section)
-        self.add(neutral_line_bending)
+
+        self.play(
+            BeamBending(beam, neutral_line, rho, L),
+            Transform(neutral_line, neutral_line_bending),
+            run_time=5,
+        )
