@@ -7,13 +7,13 @@ class PureBending(Scene):
         L = 6  # Length of the beam
         t = 2 # Thickness of the beam
         
-        axes_origin = DOWN*t + LEFT*L*0.5
+        axes_origin = DOWN*t*1 + LEFT*L*0.5
 
         axes = Axes(
             x_range=[-L/5, L/2, 4],
-            y_range=[-t*1, t*3, 4],
+            y_range=[-t*1.3, t*4, 4],
             x_length=L*2,
-            y_length=t*3,
+            y_length=t*3.5,
             axis_config={"include_ticks": False, "include_numbers": False},
             tips=False,
             stroke_width = 0.5            
@@ -52,34 +52,24 @@ class PureBending(Scene):
             color=BLUE, fill_opacity=0.5, stroke_width=2)
         self.add(beam_block)
 
-        # bending shape
-        # 1/rho = M/EI, where M is the bending moment and I is the second moment of area
-        E = 1  # Assume a constant Young's modulus for simplicity
-        I = (t**3) / 12  # Second moment of area for a rectangular cross-section
-        M = 1  # Assume a constant bending moment for simplicity
-        rho = (E*I)/M
-        rho = 2 # neutral line radius of curvature
-        y1 = rho * (1 - np.cos(axes.c2p(0, 0)[0] / rho)) # top line radius
-        y2 = rho * (1 - np.cos(axes.c2p(0, 0)[0] / rho)) # mid line radius
-        y3 = rho * (1 - np.cos(axes.c2p(0, 0)[0] / rho)) # bottom line radius
-        top_line_center_circle = np.array(top_line.get_center())
-        top_line_center_circle += np.array([0, rho, 0])
-        self.add(Dot(top_line_center_circle, color=RED))
-    
-        A1 =bottom_line.get_center() + RIGHT*L*0.6
+        # Inverted-T cross section (flange at bottom, web above)
+        section_center = bottom_line.get_center() + RIGHT * L *1
+        flange_width = 3.0
+        flange_thickness = 0.8
+        web_width = 1
+        web_height = t - flange_thickness
 
-        b1 = 3
-        A2 = A1 + RIGHT*b1
-
-        mid_A1A2 = (A1 + A2) / 2
-
-        mid_B1B2 = mid_A1A2 + UP*t
-
-        b2 = 0.5
-        B1 = mid_B1B2 - RIGHT*b2/2
-        B2 = mid_B1B2 + RIGHT*b2/2
-        
-        polygon = [A1, A2, B2, B1]
+        x0, y0, _ = section_center
+        polygon = [
+            np.array([x0 - flange_width / 2, y0, 0]),
+            np.array([x0 + flange_width / 2, y0, 0]),
+            np.array([x0 + flange_width / 2, y0 + flange_thickness, 0]),
+            np.array([x0 + web_width / 2, y0 + flange_thickness, 0]),
+            np.array([x0 + web_width / 2, y0 + flange_thickness + web_height, 0]),
+            np.array([x0 - web_width / 2, y0 + flange_thickness + web_height, 0]),
+            np.array([x0 - web_width / 2, y0 + flange_thickness, 0]),
+            np.array([x0 - flange_width / 2, y0 + flange_thickness, 0]),
+        ]
 
         cross_section = Polygon(
             *polygon,
@@ -111,7 +101,6 @@ class PureBending(Scene):
             
             return cx, cy, cz
 
-        polygon = [A1, A2, B2, B1]
         print(polygon_centroid(polygon))  # Output: (2.0, 2.0)
         centroid = polygon_centroid(polygon)
         self.add(Dot(centroid, color=RED, radius=0.03))
@@ -131,15 +120,88 @@ class PureBending(Scene):
         neutral_line.shift(neutral_shift)
         self.add(neutral_line)
 
-
+        def moment_of_inertia(vertices):
+            n = len(vertices)
+            area = 0.0
+            Ixx = 0.0
+            Iyy = 0.0
+            for i in range(n):
+                x0, y0, z0 = vertices[i]
+                x1, y1, z1 = vertices[(i + 1) % n]  # Connect back to the first vertex
+                
+                # Shoelace formula component
+                cross_product = (x0 * y1) - (x1 * y0)
+                area += cross_product
+                Ixx += (y0**2 + y0*y1 + y1**2) * cross_product
+                Iyy += (x0**2 + x0*x1 + x1**2) * cross_product
+            area *= 0.5
+            Ixx *= 0.5
+            Iyy *= 0.5
+            return area, Ixx, Iyy
+        
+        print(moment_of_inertia(polygon)[1])  # Ixx
+        I = moment_of_inertia(polygon)[1]
+        E = 0.4
+        M = 10
+        rho = (E * I) / M
+        # rho = 4
         # beam after bending
-        def bending_shape(x):
-            return rho * (1 - np.cos(x / rho))
-        bending_curve = ParametricFunction(
-            lambda t: axes.c2p(t, bending_shape(t)),
-            t_range=[-L/2, L/2],
-            color=GREEN,
+        theta_total = L / rho
+        circle_center = neutral_line.get_center() + UP * rho
+        neutral_line_bending = ParametricFunction(
+            lambda theta: circle_center + RIGHT * rho * np.sin(theta) - UP * rho * np.cos(theta),
+            t_range=[-theta_total / 2, theta_total / 2],
+            color=ORANGE,
             stroke_width=2
         )
-        bending_curve.shift(neutral_line.get_center() - axes.c2p(0, 0))
-        self.add(bending_curve)
+
+        neutral_line_center_circle = np.array(neutral_line.get_center())
+        neutral_line_center_circle += np.array([0, rho, 0])
+        self.add(Dot(neutral_line_center_circle, color=RED, radius=0.05))
+
+        self.add(Dot(neutral_line_bending.get_start(), color=RED, radius=0.05))
+        self.add(Dot(neutral_line_bending.get_end(), color=RED, radius=0.05))
+
+
+        # top_line_bending
+        top_line_bending = ParametricFunction(
+            lambda theta: circle_center + RIGHT * (rho-t/2) * np.sin(theta) - UP * (rho-t/2) * np.cos(theta),
+            t_range=[-theta_total / 2, theta_total / 2],
+            color=ORANGE,
+            stroke_width=2
+        )
+        self.add(top_line_bending)
+
+        # bottom_line_bending
+        bottom_line_bending = ParametricFunction(
+            lambda theta: circle_center + RIGHT * (rho+t/2) * np.sin(theta) - UP * (rho+t/2) * np.cos(theta),
+            t_range=[-theta_total / 2, theta_total / 2],
+            color=ORANGE,
+            stroke_width=2
+        )
+        self.add(bottom_line_bending)
+
+        r_rho_line = Line(bottom_line_bending.get_start(), neutral_line_center_circle, stroke_width=0.5, color=YELLOW)
+        self.add(r_rho_line)
+
+        l_rho_line = Line(bottom_line_bending.get_end(), neutral_line_center_circle, stroke_width=0.5, color=YELLOW)
+        self.add(l_rho_line)
+
+        num_samples = 20
+        theta_samples = np.linspace(-theta_total / 2, theta_total / 2, num_samples)
+        top_points = [
+            circle_center + RIGHT * (rho - t / 2) * np.sin(theta) - UP * (rho - t / 2) * np.cos(theta)
+            for theta in theta_samples
+        ]
+        bottom_points = [
+            circle_center + RIGHT * (rho + t / 2) * np.sin(theta) - UP * (rho + t / 2) * np.cos(theta)
+            for theta in theta_samples[::-1]
+        ]
+        d_cross_section = Polygon(
+            *(top_points + bottom_points),
+            color=BLUE,
+            fill_opacity=0.5,
+            stroke_width=2,
+        )
+        self.add(d_cross_section)
+        self.add(neutral_line_bending)
