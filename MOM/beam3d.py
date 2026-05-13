@@ -69,12 +69,26 @@ class Beam3D(ThreeDScene):
         self.add(self.bend_neutral_plane(dims, moment=1000).shift(RIGHT * (dims.length / 2 + 2)))
 
         # self.set_camera_orientation(phi=0 * DEGREES, theta=-90 * DEGREES)
-        self.set_camera_orientation(phi=90 * DEGREES, theta=0 * DEGREES)
-        self.set_camera_orientation(
-            phi=60 * DEGREES, theta=45* DEGREES,
-            gamma=120* DEGREES,
-        )
-    # cross section yz plane
+        # self.set_camera_orientation(phi=90 * DEGREES, theta=0 * DEGREES)
+        # self.set_camera_orientation(
+        #     phi=60 * DEGREES, theta=45* DEGREES,
+        #     gamma=120* DEGREES,
+        # )
+        # The standard way to get your exact view
+        # self.set_camera_orientation(phi=90 * DEGREES, theta=90 * DEGREES)
+        # Force a true, mathematically flat orthographic projection
+        # self.set_camera_orientation(phi=90 * DEGREES, theta=90 * DEGREES)
+        # The standard "3D Angle" view
+        # self.set_camera_orientation(phi=75 * DEGREES, theta=-45 * DEGREES)
+        # Standard view: X is horizontal (right), Y is vertical (up)
+        # self.set_camera_orientation(phi=90 * DEGREES, theta=0 * DEGREES, gamma=90 * DEGREES)
+        # The standard way to get your exact drawing orientation
+        # The precise configuration to match your drawing exactly
+        self.set_camera_orientation(phi=60 * DEGREES, theta=-135 * DEGREES, gamma=45 * DEGREES)
+
+        # self.set_camera_orientation(phi=60 * DEGREES, theta=45 * DEGREES)
+        # self.set_camera_orientation(phi=90 * DEGREES, theta=90 * DEGREES, gamma=0 * DEGREES)    # cross section yz plane
+    
     def cross_section_zy(self, dims: BeamDimensions) -> Polygon:
         flange_width = dims.width
         flange_thickness = dims.flange_thickness
