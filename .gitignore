@@ -44,3 +44,6 @@ wheels/
 
 !SliderCrankMechanism.gif
 !TextMoving.mp4
+
+# ignore foler yt2
+*yt2/
