@@ -1,0 +1,1157 @@
+[
+  {
+    "input_text": "Rectilinear motion describes the movement of a particle along a straight line. Here we set up a number line with an origin O. The particle can move in either direction from the origin.",
+    "input_data": {
+      "input_text": "Rectilinear motion describes the movement of a particle along a straight line. Here we set up a number line with an origin O. The particle can move in either direction from the origin.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "rectilinear-motion-describes-the-movement-of-a-41a32846.mp3",
+    "final_audio": "rectilinear-motion-describes-the-movement-of-a-41a32846.mp3"
+  },
+  {
+    "input_text": "At some time t, the particle is located at point P. The displacement s is measured from the origin O to point P.",
+    "input_data": {
+      "input_text": "At some time t, the particle is located at point P. The displacement s is measured from the origin O to point P.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "at-some-time-t-the-particle-is-located-at-point-p-80e448de.mp3",
+    "final_audio": "at-some-time-t-the-particle-is-located-at-point-p-80e448de.mp3"
+  },
+  {
+    "input_text": "After a small time interval delta t, the particle moves from P to a new position P prime. The small change in displacement is called delta s.",
+    "input_data": {
+      "input_text": "After a small time interval delta t, the particle moves from P to a new position P prime. The small change in displacement is called delta s.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "after-a-small-time-interval-delta-t-the-particle-5c295786.mp3",
+    "final_audio": "after-a-small-time-interval-delta-t-the-particle-5c295786.mp3"
+  },
+  {
+    "input_text": "Now let's move this diagram to the top and derive the velocity equations.",
+    "input_data": {
+      "input_text": "Now let's move this diagram to the top and derive the velocity equations.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "now-let-s-move-this-diagram-to-the-top-and-derive-88915e6b.mp3",
+    "final_audio": "now-let-s-move-this-diagram-to-the-top-and-derive-88915e6b.mp3"
+  },
+  {
+    "input_text": "Average velocity is defined as the total displacement divided by the total time taken. This ratio of delta s over delta t gives us how fast the particle moved on average.",
+    "input_data": {
+      "input_text": "Average velocity is defined as the total displacement divided by the total time taken. This ratio of delta s over delta t gives us how fast the particle moved on average.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "average-velocity-is-defined-as-the-total-381c3ba2.mp3",
+    "final_audio": "average-velocity-is-defined-as-the-total-381c3ba2.mp3"
+  },
+  {
+    "input_text": "To find the instantaneous velocity at a specific moment, we take the limit of that ratio as delta t approaches zero.",
+    "input_data": {
+      "input_text": "To find the instantaneous velocity at a specific moment, we take the limit of that ratio as delta t approaches zero.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "to-find-the-instantaneous-velocity-at-a-specific-f4cca51f.mp3",
+    "final_audio": "to-find-the-instantaneous-velocity-at-a-specific-f4cca51f.mp3"
+  },
+  {
+    "input_text": "In calculus, this limit is the derivative of s with respect to t \u2014 written as d s over d t in Leibniz notation.",
+    "input_data": {
+      "input_text": "In calculus, this limit is the derivative of s with respect to t \u2014 written as d s over d t in Leibniz notation.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-calculus-this-limit-is-the-derivative-of-s-with-c09d364d.mp3",
+    "final_audio": "in-calculus-this-limit-is-the-derivative-of-s-with-c09d364d.mp3"
+  },
+  {
+    "input_text": "An equivalent shorthand is Newton's dot notation: s-dot, meaning the first time derivative of displacement.",
+    "input_data": {
+      "input_text": "An equivalent shorthand is Newton's dot notation: s-dot, meaning the first time derivative of displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "an-equivalent-shorthand-is-newton-s-dot-notation-s-413bcc27.mp3",
+    "final_audio": "an-equivalent-shorthand-is-newton-s-dot-notation-s-413bcc27.mp3"
+  },
+  {
+    "input_text": "Rectilinear motion describes the movement of a particle along a straight line. Here we set up a number line with an origin O. The particle can move in either direction from the origin.",
+    "input_data": {
+      "input_text": "Rectilinear motion describes the movement of a particle along a straight line. Here we set up a number line with an origin O. The particle can move in either direction from the origin.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "rectilinear-motion-describes-the-movement-of-a-41a32846.mp3",
+    "final_audio": "rectilinear-motion-describes-the-movement-of-a-41a32846.mp3"
+  },
+  {
+    "input_text": "At some time t, the particle is located at point P. The displacement s is measured from the origin O to point P.",
+    "input_data": {
+      "input_text": "At some time t, the particle is located at point P. The displacement s is measured from the origin O to point P.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "at-some-time-t-the-particle-is-located-at-point-p-80e448de.mp3",
+    "final_audio": "at-some-time-t-the-particle-is-located-at-point-p-80e448de.mp3"
+  },
+  {
+    "input_text": "After a small time interval delta t, the particle moves from P to a new position P prime. The small change in displacement is called delta s.",
+    "input_data": {
+      "input_text": "After a small time interval delta t, the particle moves from P to a new position P prime. The small change in displacement is called delta s.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "after-a-small-time-interval-delta-t-the-particle-5c295786.mp3",
+    "final_audio": "after-a-small-time-interval-delta-t-the-particle-5c295786.mp3"
+  },
+  {
+    "input_text": "Now let's move this diagram to the top and derive the velocity equations.",
+    "input_data": {
+      "input_text": "Now let's move this diagram to the top and derive the velocity equations.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "now-let-s-move-this-diagram-to-the-top-and-derive-88915e6b.mp3",
+    "final_audio": "now-let-s-move-this-diagram-to-the-top-and-derive-88915e6b.mp3"
+  },
+  {
+    "input_text": "Average velocity is defined as the total displacement divided by the total time taken. This ratio of delta s over delta t gives us how fast the particle moved on average.",
+    "input_data": {
+      "input_text": "Average velocity is defined as the total displacement divided by the total time taken. This ratio of delta s over delta t gives us how fast the particle moved on average.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "average-velocity-is-defined-as-the-total-381c3ba2.mp3",
+    "final_audio": "average-velocity-is-defined-as-the-total-381c3ba2.mp3"
+  },
+  {
+    "input_text": "To find the instantaneous velocity at a specific moment, we take the limit of that ratio as delta t approaches zero.",
+    "input_data": {
+      "input_text": "To find the instantaneous velocity at a specific moment, we take the limit of that ratio as delta t approaches zero.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "to-find-the-instantaneous-velocity-at-a-specific-f4cca51f.mp3",
+    "final_audio": "to-find-the-instantaneous-velocity-at-a-specific-f4cca51f.mp3"
+  },
+  {
+    "input_text": "In calculus, this limit is the derivative of s with respect to t \u2014 written as d s over d t in Leibniz notation.",
+    "input_data": {
+      "input_text": "In calculus, this limit is the derivative of s with respect to t \u2014 written as d s over d t in Leibniz notation.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-calculus-this-limit-is-the-derivative-of-s-with-c09d364d.mp3",
+    "final_audio": "in-calculus-this-limit-is-the-derivative-of-s-with-c09d364d.mp3"
+  },
+  {
+    "input_text": "An equivalent shorthand is Newton's dot notation: s-dot, meaning the first time derivative of displacement.",
+    "input_data": {
+      "input_text": "An equivalent shorthand is Newton's dot notation: s-dot, meaning the first time derivative of displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "an-equivalent-shorthand-is-newton-s-dot-notation-s-413bcc27.mp3",
+    "final_audio": "an-equivalent-shorthand-is-newton-s-dot-notation-s-413bcc27.mp3"
+  },
+  {
+    "input_text": "Similarly, average acceleration is the change in velocity divided by the change in time.",
+    "input_data": {
+      "input_text": "Similarly, average acceleration is the change in velocity divided by the change in time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "similarly-average-acceleration-is-the-change-in-f45c579d.mp3",
+    "final_audio": "similarly-average-acceleration-is-the-change-in-f45c579d.mp3"
+  },
+  {
+    "input_text": "Taking the limit as delta t approaches zero gives us instantaneous acceleration.",
+    "input_data": {
+      "input_text": "Taking the limit as delta t approaches zero gives us instantaneous acceleration.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "taking-the-limit-as-delta-t-approaches-zero-gives-e3e10a2b.mp3",
+    "final_audio": "taking-the-limit-as-delta-t-approaches-zero-gives-e3e10a2b.mp3"
+  },
+  {
+    "input_text": "This is the derivative of velocity with respect to time.",
+    "input_data": {
+      "input_text": "This is the derivative of velocity with respect to time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "this-is-the-derivative-of-velocity-with-respect-to-d03b7c5f.mp3",
+    "final_audio": "this-is-the-derivative-of-velocity-with-respect-to-d03b7c5f.mp3"
+  },
+  {
+    "input_text": "In dot notation, acceleration is v-dot. Since velocity is already the first derivative of displacement, acceleration equals s double-dot \u2014 the second time derivative of displacement.",
+    "input_data": {
+      "input_text": "In dot notation, acceleration is v-dot. Since velocity is already the first derivative of displacement, acceleration equals s double-dot \u2014 the second time derivative of displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-dot-notation-acceleration-is-v-dot-since-110fffb1.mp3",
+    "final_audio": "in-dot-notation-acceleration-is-v-dot-since-110fffb1.mp3"
+  },
+  {
+    "input_text": "Rectilinear motion describes the movement of a particle along a straight line. Here we set up a number line with an origin O. The particle can move in either direction from the origin.",
+    "input_data": {
+      "input_text": "Rectilinear motion describes the movement of a particle along a straight line. Here we set up a number line with an origin O. The particle can move in either direction from the origin.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "rectilinear-motion-describes-the-movement-of-a-41a32846.mp3",
+    "final_audio": "rectilinear-motion-describes-the-movement-of-a-41a32846.mp3"
+  },
+  {
+    "input_text": "At some time t, the particle is located at point P. The displacement s is measured from the origin O to point P.",
+    "input_data": {
+      "input_text": "At some time t, the particle is located at point P. The displacement s is measured from the origin O to point P.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "at-some-time-t-the-particle-is-located-at-point-p-80e448de.mp3",
+    "final_audio": "at-some-time-t-the-particle-is-located-at-point-p-80e448de.mp3"
+  },
+  {
+    "input_text": "After a small time interval delta t, the particle moves from P to a new position P prime. The small change in displacement is called delta s.",
+    "input_data": {
+      "input_text": "After a small time interval delta t, the particle moves from P to a new position P prime. The small change in displacement is called delta s.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "after-a-small-time-interval-delta-t-the-particle-5c295786.mp3",
+    "final_audio": "after-a-small-time-interval-delta-t-the-particle-5c295786.mp3"
+  },
+  {
+    "input_text": "Now let's move this diagram to the top and derive the velocity equations.",
+    "input_data": {
+      "input_text": "Now let's move this diagram to the top and derive the velocity equations.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "now-let-s-move-this-diagram-to-the-top-and-derive-88915e6b.mp3",
+    "final_audio": "now-let-s-move-this-diagram-to-the-top-and-derive-88915e6b.mp3"
+  },
+  {
+    "input_text": "Average velocity is defined as the total displacement divided by the total time taken. This ratio of delta s over delta t gives us how fast the particle moved on average.",
+    "input_data": {
+      "input_text": "Average velocity is defined as the total displacement divided by the total time taken. This ratio of delta s over delta t gives us how fast the particle moved on average.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "average-velocity-is-defined-as-the-total-381c3ba2.mp3",
+    "final_audio": "average-velocity-is-defined-as-the-total-381c3ba2.mp3"
+  },
+  {
+    "input_text": "To find the instantaneous velocity at a specific moment, we take the limit of that ratio as delta t approaches zero.",
+    "input_data": {
+      "input_text": "To find the instantaneous velocity at a specific moment, we take the limit of that ratio as delta t approaches zero.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "to-find-the-instantaneous-velocity-at-a-specific-f4cca51f.mp3",
+    "final_audio": "to-find-the-instantaneous-velocity-at-a-specific-f4cca51f.mp3"
+  },
+  {
+    "input_text": "In calculus, this limit is the derivative of s with respect to t \u2014 written as d s over d t in Leibniz notation.",
+    "input_data": {
+      "input_text": "In calculus, this limit is the derivative of s with respect to t \u2014 written as d s over d t in Leibniz notation.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-calculus-this-limit-is-the-derivative-of-s-with-c09d364d.mp3",
+    "final_audio": "in-calculus-this-limit-is-the-derivative-of-s-with-c09d364d.mp3"
+  },
+  {
+    "input_text": "An equivalent shorthand is Newton's dot notation: s-dot, meaning the first time derivative of displacement.",
+    "input_data": {
+      "input_text": "An equivalent shorthand is Newton's dot notation: s-dot, meaning the first time derivative of displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "an-equivalent-shorthand-is-newton-s-dot-notation-s-413bcc27.mp3",
+    "final_audio": "an-equivalent-shorthand-is-newton-s-dot-notation-s-413bcc27.mp3"
+  },
+  {
+    "input_text": "Similarly, average acceleration is the change in velocity divided by the change in time.",
+    "input_data": {
+      "input_text": "Similarly, average acceleration is the change in velocity divided by the change in time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "similarly-average-acceleration-is-the-change-in-f45c579d.mp3",
+    "final_audio": "similarly-average-acceleration-is-the-change-in-f45c579d.mp3"
+  },
+  {
+    "input_text": "Taking the limit as delta t approaches zero gives us instantaneous acceleration.",
+    "input_data": {
+      "input_text": "Taking the limit as delta t approaches zero gives us instantaneous acceleration.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "taking-the-limit-as-delta-t-approaches-zero-gives-e3e10a2b.mp3",
+    "final_audio": "taking-the-limit-as-delta-t-approaches-zero-gives-e3e10a2b.mp3"
+  },
+  {
+    "input_text": "This is the derivative of velocity with respect to time.",
+    "input_data": {
+      "input_text": "This is the derivative of velocity with respect to time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "this-is-the-derivative-of-velocity-with-respect-to-d03b7c5f.mp3",
+    "final_audio": "this-is-the-derivative-of-velocity-with-respect-to-d03b7c5f.mp3"
+  },
+  {
+    "input_text": "In dot notation, acceleration is v-dot. Since velocity is already the first derivative of displacement, acceleration equals s double-dot \u2014 the second time derivative of displacement.",
+    "input_data": {
+      "input_text": "In dot notation, acceleration is v-dot. Since velocity is already the first derivative of displacement, acceleration equals s double-dot \u2014 the second time derivative of displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-dot-notation-acceleration-is-v-dot-since-110fffb1.mp3",
+    "final_audio": "in-dot-notation-acceleration-is-v-dot-since-110fffb1.mp3"
+  },
+  {
+    "input_text": "In practice, motion data is collected at discrete time intervals rather than continuously. Here we have a table of measured displacement values at six different time instants.",
+    "input_data": {
+      "input_text": "In practice, motion data is collected at discrete time intervals rather than continuously. Here we have a table of measured displacement values at six different time instants.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-practice-motion-data-is-collected-at-discrete-2cd5eb44.mp3",
+    "final_audio": "in-practice-motion-data-is-collected-at-discrete-2cd5eb44.mp3"
+  },
+  {
+    "input_text": "Each row records a time and its corresponding measured displacement.",
+    "input_data": {
+      "input_text": "Each row records a time and its corresponding measured displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "each-row-records-a-time-and-its-corresponding-6cc84b85.mp3",
+    "final_audio": "each-row-records-a-time-and-its-corresponding-6cc84b85.mp3"
+  },
+  {
+    "input_text": "We plot these data points on a displacement-time graph.",
+    "input_data": {
+      "input_text": "We plot these data points on a displacement-time graph.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "we-plot-these-data-points-on-a-displacement-time-f2c8d79f.mp3",
+    "final_audio": "we-plot-these-data-points-on-a-displacement-time-f2c8d79f.mp3"
+  },
+  {
+    "input_text": "Each row of the table maps to a point on the graph. These discrete points hint at the underlying continuous motion.",
+    "input_data": {
+      "input_text": "Each row of the table maps to a point on the graph. These discrete points hint at the underlying continuous motion.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "each-row-of-the-table-maps-to-a-point-on-the-graph-44a7c8a9.mp3",
+    "final_audio": "each-row-of-the-table-maps-to-a-point-on-the-graph-44a7c8a9.mp3"
+  },
+  {
+    "input_text": "By fitting a continuous mathematical model to these points, we recover the full displacement function s of t. This curve passes through \u2014 or near \u2014 each measured point and lets us compute velocity and acceleration at any instant.",
+    "input_data": {
+      "input_text": "By fitting a continuous mathematical model to these points, we recover the full displacement function s of t. This curve passes through \u2014 or near \u2014 each measured point and lets us compute velocity and acceleration at any instant.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "by-fitting-a-continuous-mathematical-model-to-c58bec35.mp3",
+    "final_audio": "by-fitting-a-continuous-mathematical-model-to-c58bec35.mp3"
+  },
+  {
+    "input_text": "In practice, motion data is collected at discrete time intervals rather than continuously. Here we have a table of measured displacement values at six different time instants.",
+    "input_data": {
+      "input_text": "In practice, motion data is collected at discrete time intervals rather than continuously. Here we have a table of measured displacement values at six different time instants.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-practice-motion-data-is-collected-at-discrete-2cd5eb44.mp3",
+    "final_audio": "in-practice-motion-data-is-collected-at-discrete-2cd5eb44.mp3"
+  },
+  {
+    "input_text": "Each row records a time and its corresponding measured displacement.",
+    "input_data": {
+      "input_text": "Each row records a time and its corresponding measured displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "each-row-records-a-time-and-its-corresponding-6cc84b85.mp3",
+    "final_audio": "each-row-records-a-time-and-its-corresponding-6cc84b85.mp3"
+  },
+  {
+    "input_text": "We plot these data points on a displacement-time graph.",
+    "input_data": {
+      "input_text": "We plot these data points on a displacement-time graph.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "we-plot-these-data-points-on-a-displacement-time-f2c8d79f.mp3",
+    "final_audio": "we-plot-these-data-points-on-a-displacement-time-f2c8d79f.mp3"
+  },
+  {
+    "input_text": "Each row of the table maps to a point on the graph. These discrete points hint at the underlying continuous motion.",
+    "input_data": {
+      "input_text": "Each row of the table maps to a point on the graph. These discrete points hint at the underlying continuous motion.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "each-row-of-the-table-maps-to-a-point-on-the-graph-44a7c8a9.mp3",
+    "final_audio": "each-row-of-the-table-maps-to-a-point-on-the-graph-44a7c8a9.mp3"
+  },
+  {
+    "input_text": "By fitting a continuous mathematical model to these points, we recover the full displacement function s of t. This curve passes through \u2014 or near \u2014 each measured point and lets us compute velocity and acceleration at any instant.",
+    "input_data": {
+      "input_text": "By fitting a continuous mathematical model to these points, we recover the full displacement function s of t. This curve passes through \u2014 or near \u2014 each measured point and lets us compute velocity and acceleration at any instant.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "by-fitting-a-continuous-mathematical-model-to-c58bec35.mp3",
+    "final_audio": "by-fitting-a-continuous-mathematical-model-to-c58bec35.mp3"
+  },
+  {
+    "input_text": "In practice, motion data is collected at discrete time intervals rather than continuously. Here we have a table of measured displacement values at six different time instants.",
+    "input_data": {
+      "input_text": "In practice, motion data is collected at discrete time intervals rather than continuously. Here we have a table of measured displacement values at six different time instants.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-practice-motion-data-is-collected-at-discrete-2cd5eb44.mp3",
+    "final_audio": "in-practice-motion-data-is-collected-at-discrete-2cd5eb44.mp3"
+  },
+  {
+    "input_text": "Each row records a time and its corresponding measured displacement.",
+    "input_data": {
+      "input_text": "Each row records a time and its corresponding measured displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "each-row-records-a-time-and-its-corresponding-6cc84b85.mp3",
+    "final_audio": "each-row-records-a-time-and-its-corresponding-6cc84b85.mp3"
+  },
+  {
+    "input_text": "We plot these data points on a displacement-time graph.",
+    "input_data": {
+      "input_text": "We plot these data points on a displacement-time graph.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "we-plot-these-data-points-on-a-displacement-time-f2c8d79f.mp3",
+    "final_audio": "we-plot-these-data-points-on-a-displacement-time-f2c8d79f.mp3"
+  },
+  {
+    "input_text": "Each row of the table maps to a point on the graph. These discrete points hint at the underlying continuous motion.",
+    "input_data": {
+      "input_text": "Each row of the table maps to a point on the graph. These discrete points hint at the underlying continuous motion.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "each-row-of-the-table-maps-to-a-point-on-the-graph-44a7c8a9.mp3",
+    "final_audio": "each-row-of-the-table-maps-to-a-point-on-the-graph-44a7c8a9.mp3"
+  },
+  {
+    "input_text": "Let's look at the displacement-time graph. The curve s of t shows how the particle's position changes over time.",
+    "input_data": {
+      "input_text": "Let's look at the displacement-time graph. The curve s of t shows how the particle's position changes over time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "let-s-look-at-the-displacement-time-graph-the-4d91d6a9.mp3",
+    "final_audio": "let-s-look-at-the-displacement-time-graph-the-4d91d6a9.mp3"
+  },
+  {
+    "input_text": "Between times t-one and t-two, the displacement changes from s of t-one to s of t-two. This change in displacement is delta s.",
+    "input_data": {
+      "input_text": "Between times t-one and t-two, the displacement changes from s of t-one to s of t-two. This change in displacement is delta s.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "between-times-t-one-and-t-two-the-displacement-57fff183.mp3",
+    "final_audio": "between-times-t-one-and-t-two-the-displacement-57fff183.mp3"
+  },
+  {
+    "input_text": "So delta s equals s of t-two minus s of t-one.",
+    "input_data": {
+      "input_text": "So delta s equals s of t-two minus s of t-one.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "so-delta-s-equals-s-of-t-two-minus-s-of-t-one-dcbab630.mp3",
+    "final_audio": "so-delta-s-equals-s-of-t-two-minus-s-of-t-one-dcbab630.mp3"
+  },
+  {
+    "input_text": "The slope of the secant line joining two points P and P-prime on the curve equals delta s over delta t \u2014 the average velocity over that interval.",
+    "input_data": {
+      "input_text": "The slope of the secant line joining two points P and P-prime on the curve equals delta s over delta t \u2014 the average velocity over that interval.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "the-slope-of-the-secant-line-joining-two-points-p-64f5f5c1.mp3",
+    "final_audio": "the-slope-of-the-secant-line-joining-two-points-p-64f5f5c1.mp3"
+  },
+  {
+    "input_text": "As delta t shrinks toward zero, the secant line becomes a tangent line at point P. The slope of this tangent is the instantaneous velocity \u2014 d s over d t.",
+    "input_data": {
+      "input_text": "As delta t shrinks toward zero, the secant line becomes a tangent line at point P. The slope of this tangent is the instantaneous velocity \u2014 d s over d t.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "as-delta-t-shrinks-toward-zero-the-secant-line-7a5c1b87.mp3",
+    "final_audio": "as-delta-t-shrinks-toward-zero-the-secant-line-7a5c1b87.mp3"
+  },
+  {
+    "input_text": "Watch how the tangent line's slope changes as the particle moves along its path.",
+    "input_data": {
+      "input_text": "Watch how the tangent line's slope changes as the particle moves along its path.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "watch-how-the-tangent-line-s-slope-changes-as-the-4fa16c0a.mp3",
+    "final_audio": "watch-how-the-tangent-line-s-slope-changes-as-the-4fa16c0a.mp3"
+  },
+  {
+    "input_text": "Now let's look at the velocity-time graph. The curve v of t shows how velocity varies over time.",
+    "input_data": {
+      "input_text": "Now let's look at the velocity-time graph. The curve v of t shows how velocity varies over time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "now-let-s-look-at-the-velocity-time-graph-the-73946097.mp3",
+    "final_audio": "now-let-s-look-at-the-velocity-time-graph-the-73946097.mp3"
+  },
+  {
+    "input_text": "Just as with the displacement curve, the slope of the secant line here equals delta v over delta t \u2014 the average acceleration.",
+    "input_data": {
+      "input_text": "Just as with the displacement curve, the slope of the secant line here equals delta v over delta t \u2014 the average acceleration.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "just-as-with-the-displacement-curve-the-slope-of-2cc10e2f.mp3",
+    "final_audio": "just-as-with-the-displacement-curve-the-slope-of-2cc10e2f.mp3"
+  },
+  {
+    "input_text": "In the limit, the tangent line slope becomes d v over d t \u2014 the instantaneous acceleration.",
+    "input_data": {
+      "input_text": "In the limit, the tangent line slope becomes d v over d t \u2014 the instantaneous acceleration.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-the-limit-the-tangent-line-slope-becomes-d-v-1c9f03e1.mp3",
+    "final_audio": "in-the-limit-the-tangent-line-slope-becomes-d-v-1c9f03e1.mp3"
+  },
+  {
+    "input_text": "The tangent sweeps across the velocity curve, showing how acceleration varies.",
+    "input_data": {
+      "input_text": "The tangent sweeps across the velocity curve, showing how acceleration varies.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "the-tangent-sweeps-across-the-velocity-curve-5eaa05b6.mp3",
+    "final_audio": "the-tangent-sweeps-across-the-velocity-curve-5eaa05b6.mp3"
+  },
+  {
+    "input_text": "There is another important interpretation. The area under the velocity-time curve between two times gives the displacement. This follows directly from integrating both sides of v equals d s over d t.",
+    "input_data": {
+      "input_text": "There is another important interpretation. The area under the velocity-time curve between two times gives the displacement. This follows directly from integrating both sides of v equals d s over d t.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "there-is-another-important-interpretation-the-area-3db69278.mp3",
+    "final_audio": "there-is-another-important-interpretation-the-area-3db69278.mp3"
+  },
+  {
+    "input_text": "The shaded region between t-one and t-two represents that displacement.",
+    "input_data": {
+      "input_text": "The shaded region between t-one and t-two represents that displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "the-shaded-region-between-t-one-and-t-two-ad440918.mp3",
+    "final_audio": "the-shaded-region-between-t-one-and-t-two-ad440918.mp3"
+  },
+  {
+    "input_text": "Finally, here is the acceleration-time graph. The red curve a of t traces how acceleration evolves over time.",
+    "input_data": {
+      "input_text": "Finally, here is the acceleration-time graph. The red curve a of t traces how acceleration evolves over time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "finally-here-is-the-acceleration-time-graph-the-83969167.mp3",
+    "final_audio": "finally-here-is-the-acceleration-time-graph-the-83969167.mp3"
+  },
+  {
+    "input_text": "Just as area under the velocity curve gives displacement, the area under the acceleration curve between t-one and t-two gives the change in velocity \u2014 delta v.",
+    "input_data": {
+      "input_text": "Just as area under the velocity curve gives displacement, the area under the acceleration curve between t-one and t-two gives the change in velocity \u2014 delta v.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "just-as-area-under-the-velocity-curve-gives-a8fb5721.mp3",
+    "final_audio": "just-as-area-under-the-velocity-curve-gives-a8fb5721.mp3"
+  },
+  {
+    "input_text": "The shaded area under the acceleration curve represents the change in velocity.",
+    "input_data": {
+      "input_text": "The shaded area under the acceleration curve represents the change in velocity.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "the-shaded-area-under-the-acceleration-curve-514f5838.mp3",
+    "final_audio": "the-shaded-area-under-the-acceleration-curve-514f5838.mp3"
+  },
+  {
+    "input_text": "Starting from the definition of acceleration as d v over d t, we separate variables to get d v equals a d t. Integrating both sides \u2014 velocity from v-naught to v, and time from 0 to t \u2014 gives v minus v-naught equals a t. Rearranging: v equals v-naught plus a t. This is the first kinematic equation.",
+    "input_data": {
+      "input_text": "Starting from the definition of acceleration as d v over d t, we separate variables to get d v equals a d t. Integrating both sides \u2014 velocity from v-naught to v, and time from 0 to t \u2014 gives v minus v-naught equals a t. Rearranging: v equals v-naught plus a t. This is the first kinematic equation.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "starting-from-the-definition-of-acceleration-as-d-3d6f1f3e.mp3",
+    "final_audio": "starting-from-the-definition-of-acceleration-as-d-3d6f1f3e.mp3"
+  },
+  {
+    "input_text": "For the second equation we start from v equals d s over d t. Separating variables: d s equals v d t. Substituting v equals v-naught plus a t from the first equation, then integrating from s-naught to s and 0 to t, we get s equals s-naught plus v-naught t plus one-half a t-squared.",
+    "input_data": {
+      "input_text": "For the second equation we start from v equals d s over d t. Separating variables: d s equals v d t. Substituting v equals v-naught plus a t from the first equation, then integrating from s-naught to s and 0 to t, we get s equals s-naught plus v-naught t plus one-half a t-squared.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "for-the-second-equation-we-start-from-v-equals-d-s-089bda16.mp3",
+    "final_audio": "for-the-second-equation-we-start-from-v-equals-d-s-089bda16.mp3"
+  },
+  {
+    "input_text": "The third equation eliminates time. Using the chain rule, acceleration equals d v over d s times d s over d t. Replacing d s over d t with velocity gives a equals v times d v over d s. Separating: v d v equals a d s. Integrating both sides yields one-half v-squared minus one-half v-naught-squared equals a times s minus s-naught. Multiplying through by 2: v-squared equals v-naught-squared plus 2 a times the quantity s minus s-naught.",
+    "input_data": {
+      "input_text": "The third equation eliminates time. Using the chain rule, acceleration equals d v over d s times d s over d t. Replacing d s over d t with velocity gives a equals v times d v over d s. Separating: v d v equals a d s. Integrating both sides yields one-half v-squared minus one-half v-naught-squared equals a times s minus s-naught. Multiplying through by 2: v-squared equals v-naught-squared plus 2 a times the quantity s minus s-naught.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "the-third-equation-eliminates-time-using-the-chain-095d043c.mp3",
+    "final_audio": "the-third-equation-eliminates-time-using-the-chain-095d043c.mp3"
+  },
+  {
+    "input_text": "These three equations \u2014 v equals v-naught plus a t, s equals s-naught plus v-naught t plus one-half a t-squared, and v-squared equals v-naught-squared plus 2 a times delta s \u2014 are the complete set of constant-acceleration kinematic equations.",
+    "input_data": {
+      "input_text": "These three equations \u2014 v equals v-naught plus a t, s equals s-naught plus v-naught t plus one-half a t-squared, and v-squared equals v-naught-squared plus 2 a times delta s \u2014 are the complete set of constant-acceleration kinematic equations.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "these-three-equations-v-equals-v-naught-plus-a-t-s-b389556b.mp3",
+    "final_audio": "these-three-equations-v-equals-v-naught-plus-a-t-s-b389556b.mp3"
+  },
+  {
+    "input_text": "Rectilinear motion describes the movement of a particle along a straight line. Here we set up a number line with an origin O. The particle can move in either direction from the origin.",
+    "input_data": {
+      "input_text": "Rectilinear motion describes the movement of a particle along a straight line. Here we set up a number line with an origin O. The particle can move in either direction from the origin.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "rectilinear-motion-describes-the-movement-of-a-41a32846.mp3",
+    "final_audio": "rectilinear-motion-describes-the-movement-of-a-41a32846.mp3"
+  },
+  {
+    "input_text": "At some time t, the particle is located at point P. The displacement s is measured from the origin O to point P.",
+    "input_data": {
+      "input_text": "At some time t, the particle is located at point P. The displacement s is measured from the origin O to point P.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "at-some-time-t-the-particle-is-located-at-point-p-80e448de.mp3",
+    "final_audio": "at-some-time-t-the-particle-is-located-at-point-p-80e448de.mp3"
+  },
+  {
+    "input_text": "After a small time interval delta t, the particle moves from P to a new position P prime. The small change in displacement is called delta s.",
+    "input_data": {
+      "input_text": "After a small time interval delta t, the particle moves from P to a new position P prime. The small change in displacement is called delta s.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "after-a-small-time-interval-delta-t-the-particle-5c295786.mp3",
+    "final_audio": "after-a-small-time-interval-delta-t-the-particle-5c295786.mp3"
+  },
+  {
+    "input_text": "Now let's move this diagram to the top and derive the velocity equations.",
+    "input_data": {
+      "input_text": "Now let's move this diagram to the top and derive the velocity equations.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "now-let-s-move-this-diagram-to-the-top-and-derive-88915e6b.mp3",
+    "final_audio": "now-let-s-move-this-diagram-to-the-top-and-derive-88915e6b.mp3"
+  },
+  {
+    "input_text": "Average velocity is defined as the total displacement divided by the total time taken. This ratio of delta s over delta t gives us how fast the particle moved on average.",
+    "input_data": {
+      "input_text": "Average velocity is defined as the total displacement divided by the total time taken. This ratio of delta s over delta t gives us how fast the particle moved on average.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "average-velocity-is-defined-as-the-total-381c3ba2.mp3",
+    "final_audio": "average-velocity-is-defined-as-the-total-381c3ba2.mp3"
+  },
+  {
+    "input_text": "To find the instantaneous velocity at a specific moment, we take the limit of that ratio as delta t approaches zero.",
+    "input_data": {
+      "input_text": "To find the instantaneous velocity at a specific moment, we take the limit of that ratio as delta t approaches zero.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "to-find-the-instantaneous-velocity-at-a-specific-f4cca51f.mp3",
+    "final_audio": "to-find-the-instantaneous-velocity-at-a-specific-f4cca51f.mp3"
+  },
+  {
+    "input_text": "In calculus, this limit is the derivative of s with respect to t \u2014 written as d s over d t in Leibniz notation.",
+    "input_data": {
+      "input_text": "In calculus, this limit is the derivative of s with respect to t \u2014 written as d s over d t in Leibniz notation.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-calculus-this-limit-is-the-derivative-of-s-with-c09d364d.mp3",
+    "final_audio": "in-calculus-this-limit-is-the-derivative-of-s-with-c09d364d.mp3"
+  },
+  {
+    "input_text": "An equivalent shorthand is Newton's dot notation: s-dot, meaning the first time derivative of displacement.",
+    "input_data": {
+      "input_text": "An equivalent shorthand is Newton's dot notation: s-dot, meaning the first time derivative of displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "an-equivalent-shorthand-is-newton-s-dot-notation-s-413bcc27.mp3",
+    "final_audio": "an-equivalent-shorthand-is-newton-s-dot-notation-s-413bcc27.mp3"
+  },
+  {
+    "input_text": "Similarly, average acceleration is the change in velocity divided by the change in time.",
+    "input_data": {
+      "input_text": "Similarly, average acceleration is the change in velocity divided by the change in time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "similarly-average-acceleration-is-the-change-in-f45c579d.mp3",
+    "final_audio": "similarly-average-acceleration-is-the-change-in-f45c579d.mp3"
+  },
+  {
+    "input_text": "Taking the limit as delta t approaches zero gives us instantaneous acceleration.",
+    "input_data": {
+      "input_text": "Taking the limit as delta t approaches zero gives us instantaneous acceleration.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "taking-the-limit-as-delta-t-approaches-zero-gives-e3e10a2b.mp3",
+    "final_audio": "taking-the-limit-as-delta-t-approaches-zero-gives-e3e10a2b.mp3"
+  },
+  {
+    "input_text": "This is the derivative of velocity with respect to time.",
+    "input_data": {
+      "input_text": "This is the derivative of velocity with respect to time.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "this-is-the-derivative-of-velocity-with-respect-to-d03b7c5f.mp3",
+    "final_audio": "this-is-the-derivative-of-velocity-with-respect-to-d03b7c5f.mp3"
+  },
+  {
+    "input_text": "In dot notation, acceleration is v-dot. Since velocity is already the first derivative of displacement, acceleration equals s double-dot \u2014 the second time derivative of displacement.",
+    "input_data": {
+      "input_text": "In dot notation, acceleration is v-dot. Since velocity is already the first derivative of displacement, acceleration equals s double-dot \u2014 the second time derivative of displacement.",
+      "config": {
+        "format": 8,
+        "channels": 1,
+        "rate": 44100,
+        "chunk": 512
+      },
+      "service": "recorder"
+    },
+    "original_audio": "in-dot-notation-acceleration-is-v-dot-since-110fffb1.mp3",
+    "final_audio": "in-dot-notation-acceleration-is-v-dot-since-110fffb1.mp3"
+  }
+]

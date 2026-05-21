@@ -21,6 +21,15 @@ wheels/
 *.mpg
 *.mpeg
 *.3gp
+*.ogg
+*.mpeg4
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+*.srt
+
 
 # Exception: Include this specific video for README
 !Tutorial/media/videos/text/480p15/TextMoving.mp4
@@ -47,3 +56,6 @@ wheels/
 
 # ignore foler yt2
 *yt2/
+*.yt3/
+*.yt4/
+*.yt5/
