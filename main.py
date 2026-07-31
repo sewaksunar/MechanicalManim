@@ -1,6 +1,3 @@
-def main():
-    print("Hello from manimations!")
+from manim import *
 
-
-if __name__ == "__main__":
-    main()
+class Video(Scene):

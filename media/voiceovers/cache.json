@@ -1153,5 +1153,14 @@
     },
     "original_audio": "in-dot-notation-acceleration-is-v-dot-since-110fffb1.mp3",
     "final_audio": "in-dot-notation-acceleration-is-v-dot-since-110fffb1.mp3"
+  },
+  {
+    "input_text": "Let's consider a rectangular coordinate system.",
+    "input_data": {
+      "input_text": "Let's consider a rectangular coordinate system.",
+      "service": "gtts"
+    },
+    "original_audio": "let-s-consider-a-rectangular-coordinate-system-69a6e0b0.mp3",
+    "final_audio": "let-s-consider-a-rectangular-coordinate-system-69a6e0b0.mp3"
   }
 ]
